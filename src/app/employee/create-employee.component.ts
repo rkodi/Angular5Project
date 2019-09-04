@@ -139,6 +139,8 @@ export class CreateEmployeeComponent implements OnInit {
       if (abstractControl && !abstractControl.valid &&
         (abstractControl.touched || abstractControl.dirty)) {
         const messages = this.validationMessages[key];
+        console.log(messages);
+        console.log(abstractControl.errors);
 
         for (const errorKey in abstractControl.errors) {
           if (errorKey) {
@@ -151,7 +153,7 @@ export class CreateEmployeeComponent implements OnInit {
         this.logValidationErrors(abstractControl);
       } 
        
-        console.log('key= ' + key + ' Value =' + abstractControl.value);
+        // console.log('key= ' + key + ' Value =' + abstractControl.value);
       
     });
   }
@@ -170,22 +172,25 @@ export class CreateEmployeeComponent implements OnInit {
 
   onLoadDataClick(): void {
 
-    const formArray = new FormArray([
-      new FormControl('John', Validators.required),
-      new FormGroup({
-        country: new FormControl('', Validators.required)
-      }),
-      new FormArray([])
-    ]);
+    this.logValidationErrors(this.employeeForm);
+    console.log(this.formErrors);
 
-    const formArray1 = this.fb.array([
-      new FormControl('John', Validators.required),
-      new FormControl('IT', Validators.required),
-      new FormControl('', Validators.required),
+    // const formArray = new FormArray([
+    //   new FormControl('John', Validators.required),
+    //   new FormGroup({
+    //     country: new FormControl('', Validators.required)
+    //   }),
+    //   new FormArray([])
+    // ]);
+
+    // const formArray1 = this.fb.array([
+    //   new FormControl('John', Validators.required),
+    //   new FormControl('IT', Validators.required),
+    //   new FormControl('', Validators.required),
       
-    ]);
+    // ]);
 
-    console.log(formArray1.value);
+    // console.log(formArray1.value);
     // for formArray output
     // console.log(formArray.length);
 
@@ -200,8 +205,7 @@ export class CreateEmployeeComponent implements OnInit {
     //     console.log('Control is FormArray')
     //   }
     // }
-    // this.logValidationErrors(this.employeeForm);
-    // console.log(this.formErrors);
+    
 
     // this.employeeForm.patchValue({
     //   fullName: 'Ravi Kodi',
