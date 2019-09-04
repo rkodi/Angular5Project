@@ -26,7 +26,8 @@
           </label>        
         </div>
       </div>
-
+    
+    <div formGroupName="emailGroup">
       <div class="form-group" [ngClass]="{'has-error' : formErrors.email}">
         <label class="col-sm-2 control-label"  for="email">Email</label>
         <div class="col-sm-8">
@@ -38,6 +39,18 @@
         </div>        
       </div>
 
+      <div class="form-group" [ngClass]="{'has-error' : formErrors.confirmEmail || formErrors.emailGroup}">
+        <label class="col-sm-2 control-label"  for="confirmEmail">Confirm Email</label>
+        <div class="col-sm-8">
+          <input id="confirmEmail" formControlName="confirmEmail" type="text" class="form-control"
+            (blur)="logValidationErrors()">
+            <span class="help-block" *ngIf="formErrors.confirmEmail || formErrors.emailGroup">
+                {{formErrors.confirmEmail ? formErrors.confirmEmail : formErrors.emailGroup}}
+            </span>
+        </div>        
+      </div>
+    </div>
+
       <div class="form-group" [ngClass]="{'has-error' : formErrors.phone}">
         <label class="col-sm-2 control-label"  for="phone">Phone</label>
         <div class="col-sm-8">
@@ -45,6 +58,17 @@
             (blur)="logValidationErrors()">
             <span class="help-block" *ngIf="formErrors.phone">
                 {{formErrors.phone}}
+            </span>
+        </div>        
+      </div>
+
+      <div class="form-group" [ngClass]="{'has-error' : formErrors.annualAmount}">
+        <label class="col-sm-2 control-label"  for="annualAmount">Amount</label>
+        <div class="col-sm-8">
+          <input id="annualAmount" formControlName="annualAmount" type="text" class="form-control"
+            (blur)="logValidationErrors()" [textMask]="amountMask" [appUnmask]="amountUnmask">
+            <span class="help-block" *ngIf="formErrors.annualAmount">
+                {{formErrors.annualAmount}}
             </span>
         </div>        
       </div>
@@ -115,7 +139,7 @@
 <table border="1">
   <tr>
     <th style="padding: 10px">FormGroup</th>
-    <th style="padding: 10px">FormControl (fullName)</th>
+    <th style="padding: 10px">FormControl (email)</th>
   </tr>
   <tr>
     <td style="padding: 10px">
@@ -125,10 +149,10 @@
       <br/> Form Values : {{employeeForm.value | json}}
     </td>
     <td style="padding: 10px">
-      touched : {{ employeeForm.get('fullName').touched }}
-      <br/> dirty : {{ employeeForm.get('fullName').dirty }}
-      <br/> valid : {{ employeeForm.get('fullName').valid }}
-      <br/> FullName Value : {{employeeForm.get('fullName').value}}
+      touched : {{ employeeForm.get('annualAmount').touched }}
+      <br/> dirty : {{ employeeForm.get('annualAmount').dirty }}
+      <br/> valid : {{ employeeForm.get('annualAmount').valid }}
+      <br/> annualAmount Value : {{employeeForm.get('annualAmount').value}}
     </td>
   </tr>
 </table>
