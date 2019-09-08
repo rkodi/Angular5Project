@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormGroup, FormBuilder, Validators, AbstractControl, FormArray, FormControl } from '@angular/forms';
+import { FormGroup, FormBuilder, Validators, AbstractControl, FormArray, FormControl, ValidatorFn } from '@angular/forms';
 import { CustomValidators } from '../shared/custom.validators';
 import createNumberMask from 'text-mask-addons/dist/createNumberMask';
 
@@ -32,8 +32,11 @@ export class CreateEmployeeComponent implements OnInit {
     'email': '',
     'confirmEmail': '',
     'emailGroup': '',
+    'amountGroup': '',
     'phone': '',
     'annualAmount': '',
+    'compareAmount': '',
+    'thirdAmount': '',
     'skillName': '',
     'experienceInYears': '',
     'proficiency': ''
@@ -56,15 +59,29 @@ export class CreateEmployeeComponent implements OnInit {
     'emailGroup': {
       'emailMismatch': 'Email and Confirm email dose not match.'
     },
+    'amountGroup': {
+      
+      'compareLessThanAnnualAmount2': 'thirdAmount can not be dreater than Compare.',
+
+    },
     'phone': {
       'required': 'Phone number is required.'
     },
     'annualAmount': {
-      'required': 'Amount is required.',
+      'required': 'Annual Amount is required.',
       'min': 'Amount must be greater than 999 .',
       'max': 'Amount must be less than 1,000,000,000.',
-      'annualAmountMinMax': 'Must be 999 or 100000000',
-      'annualAmountMinMax1': 'Must be 999 or 100000000'
+      'annualAmountMinMax': 'Must be 999 or 100000000 max',
+      'annualAmountMinMax1': 'Must be 999 or 100000000 max1'
+    },
+    'compareAmount': {
+      'required': 'Compare Amount is required.',
+      'compareAmountMinMax': 'Compare Must be less than 50,000.',
+      'compareLessThanAnnualAmount1': 'Compare Amount can not be greater than Annual Amount.'
+    },
+    'thirdAmount': {
+      'required': 'Third Amount is required.',
+      'compareAmountMinMax': 'Third Amount Must be less than 50,000.',
     },
     'skillName': {
       'required': 'Skill Name is required.',
@@ -95,10 +112,17 @@ export class CreateEmployeeComponent implements OnInit {
         confirmEmail: ['', Validators.required]
       }, {validator: matchEmail}),
       phone: [''],
+    amountGroup: this.fb.group({
       annualAmount: ['', [
-        Validators.required, 
-        CustomValidators.annualAmountMinMax,
+        Validators.required,
         CustomValidators.annualAmountMinMax1]],
+      compareAmount: ['', [
+        Validators.required,
+        CustomValidators.compareAmountMinMax]],
+      thirdAmount: ['', [
+        Validators.required,
+        CustomValidators.compareAmountMinMax]],
+    }, {validator: compareLessThanAnnual1}),    
     skills: this.fb.group({
         skillName: ['', Validators.required],
         experienceInYears: ['', Validators.required],
@@ -118,6 +142,25 @@ export class CreateEmployeeComponent implements OnInit {
     //   this.fullNameLength = value.length;
     // });
   }
+
+  matchValidator(control: AbstractControl): { [key: string]: boolean } | null {
+    const fromValue = control.value;
+    if(this.employeeForm) {
+      const toValue = (<FormGroup>this.employeeForm.get('group1')).get('field').value;
+      if (fromValue <= toValue) {
+        console.log('Control: ', control);
+        return { 'fieldMatch' : true };
+      }
+      console.log('Control: ', control);
+      return null;
+    }
+  }
+
+  get group2Field() {
+    return (<FormGroup>this.employeeForm.get('group2')).get('field');
+  }
+
+
     
   onContactPreferenceChange(selectedValue: string) {
     const phoneControl = this.employeeForm.get('phone');
@@ -236,6 +279,29 @@ function matchEmail(group: AbstractControl): {[key: string]: any} | null {
   } else {
     return { 'emailMismatch': true};
   }
+}
+
+function compareLessThanAnnual(group: AbstractControl): {[key: string]: any} | null {
+  const annualControl =  group.get('annualAmount');
+  const compareControl =  group.get('compareAmount');
+
+  if(Number(annualControl.value) > Number(compareControl.value) || annualControl.pristine || compareControl.pristine) {
+    return null;
+  } else {
+    return { 'compareLessThanAnnualAmount': true};
+  }
+}
+
+const compareLessThanAnnual1: ValidatorFn = (fg: FormGroup) => {
+  const annualControl1 = fg.get('annualAmount').value;
+  const compareControl1 = fg.get('compareAmount').value;
+  const thirdControl1 = fg.get('thirdAmount').value;
+  if ( Number(annualControl1) > Number(compareControl1) || annualControl1 === '' || compareControl1 === '' || compareControl1.pristine){
+    return null;
+  }else
+    
+    return { 'compareLessThanAnnualAmount1': true };
+    // return { 'compareLessThanAnnualAmount2': true };
 }
 
 

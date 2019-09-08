@@ -37,5 +37,17 @@ export class CustomValidators {
                 
            
         }
+
+    static compareAmountMinMax(control: FormControl):  any {
+            let compareAmount: any = control.value;
+            if(compareAmount === '') {                
+                return null;             
+                
+            } else if(Number(compareAmount) >= 50001.00) {
+                return {'compareAmountMinMax': true}
+            }
+                
+           
+        }
     
 }

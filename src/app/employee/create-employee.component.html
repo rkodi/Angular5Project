@@ -61,7 +61,8 @@
             </span>
         </div>        
       </div>
-
+    
+    <div formGroupName="amountGroup">
       <div class="form-group" [ngClass]="{'has-error' : formErrors.annualAmount}">
         <label class="col-sm-2 control-label"  for="annualAmount">Amount</label>
         <div class="col-sm-8">
@@ -72,6 +73,31 @@
             </span>
         </div>        
       </div>
+
+      <div class="form-group" [ngClass]="{'has-error' : formErrors.compareAmount || formErrors.amountGroup}">
+        <label class="col-sm-2 control-label"  for="compareAmount">Compare Amount</label>
+        <div class="col-sm-8">
+          <input id="compareAmount" formControlName="compareAmount" type="text" class="form-control"
+            (blur)="logValidationErrors()" [textMask]="amountMask" [appUnmask]="amountUnmask">
+            <span class="help-block" *ngIf="formErrors.compareAmount || formErrors.amountGroup">
+                {{formErrors.compareAmount}}
+                {{formErrors.amountGroup}}
+            </span>
+        </div>        
+      </div>
+
+      <div class="form-group" [ngClass]="{'has-error' : formErrors.thirdAmount || formErrors.amountGroup}">
+        <label class="col-sm-2 control-label"  for="thirdAmount">Compare Amount</label>
+        <div class="col-sm-8">
+          <input id="thirdAmount" formControlName="thirdAmount" type="text" class="form-control"
+            (blur)="logValidationErrors()" [textMask]="amountMask" [appUnmask]="amountUnmask">
+            <span class="help-block" *ngIf="formErrors.thirdAmount || formErrors.amountGroup">
+                {{formErrors.thirdAmount}}
+                {{formErrors.amountGroup}}
+            </span>
+        </div>        
+      </div>
+    </div>
 
       <div class="well">
       <div formGroupName="skills">
@@ -136,7 +162,7 @@
   </div>
 </form>
 
-<table border="1">
+<!-- <table border="1">
   <tr>
     <th style="padding: 10px">FormGroup</th>
     <th style="padding: 10px">FormControl (email)</th>
@@ -155,4 +181,4 @@
       <br/> annualAmount Value : {{employeeForm.get('annualAmount').value}}
     </td>
   </tr>
-</table>
+</table> -->

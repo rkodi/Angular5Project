@@ -17,7 +17,7 @@ export class UnmaskDirective implements OnInit, OnDestroy {
     this.subscriber = this.model.control.valueChanges.subscribe(() => {
       const newValue = this.elementRef.nativeElement.value.replace(new RegExp(this.appUnmask), '');
 
-      console.log(newValue);
+      // console.log(newValue);
       this.model.control.setValue(newValue, {
         emitEvent: false,
         emitModelToViewChange: false,
