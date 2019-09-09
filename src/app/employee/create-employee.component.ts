@@ -11,7 +11,7 @@ import createNumberMask from 'text-mask-addons/dist/createNumberMask';
 })
 export class CreateEmployeeComponent implements OnInit {
 
- 
+
   employeeForm: FormGroup;
   fullNameLength = 0;
   amountUnmask = /[^\d.-]/g
@@ -23,7 +23,7 @@ export class CreateEmployeeComponent implements OnInit {
       prefix: '$',
       suffix: '.00',
       thousandsSeparatorSymbol: ','
-      
+
     })
   });
 
@@ -60,8 +60,8 @@ export class CreateEmployeeComponent implements OnInit {
       'emailMismatch': 'Email and Confirm email dose not match.'
     },
     'amountGroup': {
-      
-      'compareLessThanAnnualAmount2': 'thirdAmount can not be dreater than Compare.',
+
+      // 'compareLessThanAnnualAmount2': 'thirdAmount can not be dreater than Compare.',
 
     },
     'phone': {
@@ -77,7 +77,7 @@ export class CreateEmployeeComponent implements OnInit {
     'compareAmount': {
       'required': 'Compare Amount is required.',
       'compareAmountMinMax': 'Compare Must be less than 50,000.',
-      'compareLessThanAnnualAmount1': 'Compare Amount can not be greater than Annual Amount.'
+      // 'compareLessThanAnnualAmount1': 'Compare Amount can not be greater than Annual Amount.'
     },
     'thirdAmount': {
       'required': 'Third Amount is required.',
@@ -101,29 +101,29 @@ export class CreateEmployeeComponent implements OnInit {
 
     this.employeeForm = this.fb.group({
       fullName: ['', [
-        Validators.required, 
-        Validators.minLength(2), 
+        Validators.required,
+        Validators.minLength(2),
         Validators.maxLength(10)]],
       contactPreference: ['email'],
-    emailGroup: this.fb.group({
+      emailGroup: this.fb.group({
         email: ['', [
-          Validators.required, 
+          Validators.required,
           CustomValidators.emailDomain('test.com')]],
         confirmEmail: ['', Validators.required]
-      }, {validator: matchEmail}),
+      }, { validator: matchEmail }),
       phone: [''],
-    amountGroup: this.fb.group({
-      annualAmount: ['', [
-        Validators.required,
-        CustomValidators.annualAmountMinMax1]],
-      compareAmount: ['', [
-        Validators.required,
-        CustomValidators.compareAmountMinMax]],
-      thirdAmount: ['', [
-        Validators.required,
-        CustomValidators.compareAmountMinMax]],
-    }, {validator: compareLessThanAnnual1}),    
-    skills: this.fb.group({
+      amountGroup: this.fb.group({
+        annualAmount: ['', [
+          Validators.required,
+          CustomValidators.annualAmountMinMax1]],
+        compareAmount: ['', [
+          Validators.required,
+          CustomValidators.compareAmountMinMax]],
+        thirdAmount: ['', [
+          Validators.required,
+          CustomValidators.compareAmountMinMax]],
+      }, { validator: compareLessThanAnnual1 }),
+      skills: this.fb.group({
         skillName: ['', Validators.required],
         experienceInYears: ['', Validators.required],
         proficiency: ['', Validators.required]
@@ -145,11 +145,11 @@ export class CreateEmployeeComponent implements OnInit {
 
   matchValidator(control: AbstractControl): { [key: string]: boolean } | null {
     const fromValue = control.value;
-    if(this.employeeForm) {
+    if (this.employeeForm) {
       const toValue = (<FormGroup>this.employeeForm.get('group1')).get('field').value;
       if (fromValue <= toValue) {
         console.log('Control: ', control);
-        return { 'fieldMatch' : true };
+        return { 'fieldMatch': true };
       }
       console.log('Control: ', control);
       return null;
@@ -161,7 +161,7 @@ export class CreateEmployeeComponent implements OnInit {
   }
 
 
-    
+
   onContactPreferenceChange(selectedValue: string) {
     const phoneControl = this.employeeForm.get('phone');
     if (selectedValue === 'phone') {
@@ -182,8 +182,8 @@ export class CreateEmployeeComponent implements OnInit {
       if (abstractControl && !abstractControl.valid &&
         (abstractControl.touched || abstractControl.dirty)) {
         const messages = this.validationMessages[key];
-        console.log(messages);
-        console.log(abstractControl.errors);
+        // console.log(messages);
+        // console.log(abstractControl.errors);
 
         for (const errorKey in abstractControl.errors) {
           if (errorKey) {
@@ -194,10 +194,10 @@ export class CreateEmployeeComponent implements OnInit {
       }
       if (abstractControl instanceof FormGroup) {
         this.logValidationErrors(abstractControl);
-      } 
-       
-        // console.log('key= ' + key + ' Value =' + abstractControl.value);
-      
+      }
+
+      // console.log('key= ' + key + ' Value =' + abstractControl.value);
+
     });
   }
 
@@ -230,7 +230,7 @@ export class CreateEmployeeComponent implements OnInit {
     //   new FormControl('John', Validators.required),
     //   new FormControl('IT', Validators.required),
     //   new FormControl('', Validators.required),
-      
+
     // ]);
 
     // console.log(formArray1.value);
@@ -248,7 +248,7 @@ export class CreateEmployeeComponent implements OnInit {
     //     console.log('Control is FormArray')
     //   }
     // }
-    
+
 
     // this.employeeForm.patchValue({
     //   fullName: 'Ravi Kodi',
@@ -261,34 +261,91 @@ export class CreateEmployeeComponent implements OnInit {
     // })
   }
   onSubmit(): void {
-    console.log(this.employeeForm.dirty);
+    // console.log(this.employeeForm.dirty);
     console.log(this.employeeForm.value);
 
-    console.log(this.employeeForm.controls.fullName.touched);
-    console.log(this.employeeForm.get('fullName').value);
+    // console.log(this.employeeForm.controls.fullName.touched);
+    // console.log(this.employeeForm.get('fullName').value);
+  }
+
+
+  checkValuesCompareAmount() {
+
+
+    if (((this.formErrors.amountGroup != 'undefined ') && (this.formErrors.compareAmount || this.formErrors.amountGroup))) {
+      return true;
+    }
+    else {
+      if ((this.employeeForm.value.amountGroup.compareAmount && this.formErrors.amountGroup == 'undefined ')) {
+        if (this.employeeForm.value.amountGroup.annualAmount >= this.employeeForm.value.amountGroup.compareAmount) {
+          return true;
+        }
+      }
+      else {
+
+        if (this.employeeForm.value.amountGroup.annualAmount && this.employeeForm.value.amountGroup.compareAmount) {
+          if (this.employeeForm.value.amountGroup.annualAmount >= this.employeeForm.value.amountGroup.compareAmount) {
+            return true;
+          }
+        }
+
+
+        return false;
+      }
+
+    }
+
+  }
+
+  checkValuesthirdAmount() {
+
+
+    if (((this.formErrors.amountGroup != 'undefined ') && (this.formErrors.thirdAmount || this.formErrors.amountGroup))) {
+      return true;
+    }
+    else {
+      if ((this.employeeForm.value.amountGroup.thirdAmount && this.formErrors.amountGroup == 'undefined ')) {
+        if (this.employeeForm.value.amountGroup.compareAmount >= this.employeeForm.value.amountGroup.thirdAmount) {
+          return true;
+        }
+      }
+      else {
+
+        if (this.employeeForm.value.amountGroup.thirdAmount && this.employeeForm.value.amountGroup.compareAmount) {
+          if (this.employeeForm.value.amountGroup.compareAmount >= this.employeeForm.value.amountGroup.thirdAmount) {
+            return true;
+          }
+        }
+
+
+        return false;
+      }
+
+    }
+
   }
 
 }
 
-function matchEmail(group: AbstractControl): {[key: string]: any} | null {
-  const emailControl =  group.get('email');
-  const confirmEmailControl =  group.get('confirmEmail');
+function matchEmail(group: AbstractControl): { [key: string]: any } | null {
+  const emailControl = group.get('email');
+  const confirmEmailControl = group.get('confirmEmail');
 
-  if(emailControl.value === confirmEmailControl.value || confirmEmailControl.pristine) {
+  if (emailControl.value === confirmEmailControl.value || confirmEmailControl.pristine) {
     return null;
   } else {
-    return { 'emailMismatch': true};
+    return { 'emailMismatch': true };
   }
 }
 
-function compareLessThanAnnual(group: AbstractControl): {[key: string]: any} | null {
-  const annualControl =  group.get('annualAmount');
-  const compareControl =  group.get('compareAmount');
+function compareLessThanAnnual(group: AbstractControl): { [key: string]: any } | null {
+  const annualControl = group.get('annualAmount');
+  const compareControl = group.get('compareAmount');
 
-  if(Number(annualControl.value) > Number(compareControl.value) || annualControl.pristine || compareControl.pristine) {
+  if (Number(annualControl.value) > Number(compareControl.value) || annualControl.pristine || compareControl.pristine) {
     return null;
   } else {
-    return { 'compareLessThanAnnualAmount': true};
+    return { 'compareLessThanAnnualAmount': true };
   }
 }
 
@@ -296,12 +353,12 @@ const compareLessThanAnnual1: ValidatorFn = (fg: FormGroup) => {
   const annualControl1 = fg.get('annualAmount').value;
   const compareControl1 = fg.get('compareAmount').value;
   const thirdControl1 = fg.get('thirdAmount').value;
-  if ( Number(annualControl1) > Number(compareControl1) || annualControl1 === '' || compareControl1 === '' || compareControl1.pristine){
+  if (Number(annualControl1) > Number(compareControl1) || annualControl1 === '' || compareControl1 === '' || compareControl1.pristine) {
     return null;
-  }else
-    
+  } else
+
     return { 'compareLessThanAnnualAmount1': true };
-    // return { 'compareLessThanAnnualAmount2': true };
+  // return { 'compareLessThanAnnualAmount2': true };
 }
 
 

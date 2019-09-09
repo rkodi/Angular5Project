@@ -8,13 +8,13 @@
         <label class="col-sm-2 control-label" for="fullName">Full Name</label>
         <div class="col-sm-8">
           <input id="fullName" formControlName="fullName" type="text" class="form-control"
-              (blur)="logValidationErrors()">
-        <span class="help-block" *ngIf="formErrors.fullName">
+            (blur)="logValidationErrors()">
+          <span class="help-block" *ngIf="formErrors.fullName">
             {{formErrors.fullName}}
-          </span>          
+          </span>
         </div>
       </div>
-      
+
       <div class="form-group">
         <label class="col-md-2 control-label">Contact Preference</label>
         <div class="col-md-8">
@@ -23,141 +23,162 @@
           </label>
           <label class="radio-inline">
             <input type="radio" value="phone" formControlName="contactPreference">Phone
-          </label>        
+          </label>
         </div>
       </div>
-    
-    <div formGroupName="emailGroup">
-      <div class="form-group" [ngClass]="{'has-error' : formErrors.email}">
-        <label class="col-sm-2 control-label"  for="email">Email</label>
-        <div class="col-sm-8">
-          <input id="email" formControlName="email" type="text" class="form-control"
-            (blur)="logValidationErrors()">
+
+      <div formGroupName="emailGroup">
+        <div class="form-group" [ngClass]="{'has-error' : formErrors.email}">
+          <label class="col-sm-2 control-label" for="email">Email</label>
+          <div class="col-sm-8">
+            <input id="email" formControlName="email" type="text" class="form-control" (blur)="logValidationErrors()">
             <span class="help-block" *ngIf="formErrors.email">
-                {{formErrors.email}}
+              {{formErrors.email}}
             </span>
-        </div>        
-      </div>
-
-      <div class="form-group" [ngClass]="{'has-error' : formErrors.confirmEmail || formErrors.emailGroup}">
-        <label class="col-sm-2 control-label"  for="confirmEmail">Confirm Email</label>
-        <div class="col-sm-8">
-          <input id="confirmEmail" formControlName="confirmEmail" type="text" class="form-control"
-            (blur)="logValidationErrors()">
-            <span class="help-block" *ngIf="formErrors.confirmEmail || formErrors.emailGroup">
-                {{formErrors.confirmEmail ? formErrors.confirmEmail : formErrors.emailGroup}}
-            </span>
-        </div>        
-      </div>
-    </div>
-
-      <div class="form-group" [ngClass]="{'has-error' : formErrors.phone}">
-        <label class="col-sm-2 control-label"  for="phone">Phone</label>
-        <div class="col-sm-8">
-          <input id="phone" formControlName="phone" type="text" class="form-control"
-            (blur)="logValidationErrors()">
-            <span class="help-block" *ngIf="formErrors.phone">
-                {{formErrors.phone}}
-            </span>
-        </div>        
-      </div>
-    
-    <div formGroupName="amountGroup">
-      <div class="form-group" [ngClass]="{'has-error' : formErrors.annualAmount}">
-        <label class="col-sm-2 control-label"  for="annualAmount">Amount</label>
-        <div class="col-sm-8">
-          <input id="annualAmount" formControlName="annualAmount" type="text" class="form-control"
-            (blur)="logValidationErrors()" [textMask]="amountMask" [appUnmask]="amountUnmask">
-            <span class="help-block" *ngIf="formErrors.annualAmount">
-                {{formErrors.annualAmount}}
-            </span>
-        </div>        
-      </div>
-
-      <div class="form-group" [ngClass]="{'has-error' : formErrors.compareAmount || formErrors.amountGroup}">
-        <label class="col-sm-2 control-label"  for="compareAmount">Compare Amount</label>
-        <div class="col-sm-8">
-          <input id="compareAmount" formControlName="compareAmount" type="text" class="form-control"
-            (blur)="logValidationErrors()" [textMask]="amountMask" [appUnmask]="amountUnmask">
-            <span class="help-block" *ngIf="formErrors.compareAmount || formErrors.amountGroup">
-                {{formErrors.compareAmount}}
-                {{formErrors.amountGroup}}
-            </span>
-        </div>        
-      </div>
-
-      <div class="form-group" [ngClass]="{'has-error' : formErrors.thirdAmount || formErrors.amountGroup}">
-        <label class="col-sm-2 control-label"  for="thirdAmount">Compare Amount</label>
-        <div class="col-sm-8">
-          <input id="thirdAmount" formControlName="thirdAmount" type="text" class="form-control"
-            (blur)="logValidationErrors()" [textMask]="amountMask" [appUnmask]="amountUnmask">
-            <span class="help-block" *ngIf="formErrors.thirdAmount || formErrors.amountGroup">
-                {{formErrors.thirdAmount}}
-                {{formErrors.amountGroup}}
-            </span>
-        </div>        
-      </div>
-    </div>
-
-      <div class="well">
-      <div formGroupName="skills">
-        <div class="form-group" [ngClass]="{'has-error' : formErrors.skillName}">
-          <label class="col-sm-2 control-label" for="skillName">
-            Skill
-          </label>
-          <div class="col-sm-4">
-            <input type="text" class="form-control" id="skillName"
-                placeholder="C#,Java,Angulae etc.." formControlName="skillName" (blur)="logValidationErrors()">
-                <span class="help-block" *ngIf="formErrors.skillName">
-                    {{formErrors.skillName}}
-                </span>
           </div>
         </div>
 
-        <div class="form-group" [ngClass]="{'has-error': formErrors.experienceInYears}">
+        <div class="form-group" [ngClass]="{'has-error' : formErrors.confirmEmail || formErrors.emailGroup}">
+          <label class="col-sm-2 control-label" for="confirmEmail">Confirm Email</label>
+          <div class="col-sm-8">
+            <input id="confirmEmail" formControlName="confirmEmail" type="text" class="form-control"
+              (blur)="logValidationErrors()">
+            <span class="help-block" *ngIf="formErrors.confirmEmail || formErrors.emailGroup">
+              {{formErrors.confirmEmail ? formErrors.confirmEmail : formErrors.emailGroup}}
+            </span>
+          </div>
+        </div>
+      </div>
+
+      <div class="form-group" [ngClass]="{'has-error' : formErrors.phone}">
+        <label class="col-sm-2 control-label" for="phone">Phone</label>
+        <div class="col-sm-8">
+          <input id="phone" formControlName="phone" type="text" class="form-control" (blur)="logValidationErrors()">
+          <span class="help-block" *ngIf="formErrors.phone">
+            {{formErrors.phone}}
+          </span>
+        </div>
+      </div>
+
+      <div formGroupName="amountGroup">
+        <div class="form-group" [ngClass]="{'has-error' : formErrors.annualAmount}">
+          <label class="col-sm-2 control-label" for="annualAmount">Amount</label>
+          <div class="col-sm-8">
+            <input id="annualAmount" formControlName="annualAmount" type="text" class="form-control"
+              (blur)="logValidationErrors()" [textMask]="amountMask" [appUnmask]="amountUnmask">
+            <span class="help-block" *ngIf="formErrors.annualAmount">
+              {{formErrors.annualAmount}}
+            </span>
+          </div>
+        </div>
+
+        <div class="form-group" [ngClass]="{'has-error' : checkValuesCompareAmount()}">
+          <label class="col-sm-2 control-label" for="compareAmount">Compare Amount</label>
+          <div class="col-sm-8">
+            <input id="compareAmount" formControlName="compareAmount" type="text" class="form-control"
+              (blur)="logValidationErrors()" [textMask]="amountMask" [appUnmask]="amountUnmask">
+            <span class="help-block"
+              *ngIf="((formErrors.amountGroup!='undefined ') && (formErrors.compareAmount || formErrors.amountGroup))">
+              {{formErrors.compareAmount}}
+              {{formErrors.amountGroup}}
+            </span>
+
+            <span *ngIf="(employeeForm.value.amountGroup.compareAmount && formErrors.amountGroup=='undefined ')">
+              <span class="help-block"
+                *ngIf="employeeForm.value.amountGroup.annualAmount>=employeeForm.value.amountGroup.compareAmount">
+                should be greater than annual
+              </span>
+
+            </span>
+
+
+
+          </div>
+        </div>
+
+        <div class="form-group" [ngClass]="{'has-error' : checkValuesthirdAmount()}">
+          <label class="col-sm-2 control-label" for="thirdAmount">Compare Amount</label>
+          <div class="col-sm-8">
+            <input id="thirdAmount" formControlName="thirdAmount" type="text" class="form-control"
+              (blur)="logValidationErrors()" [textMask]="amountMask" [appUnmask]="amountUnmask">
+
+            <span class="help-block"
+              *ngIf="((formErrors.amountGroup!='undefined ') && (formErrors.thirdAmount || formErrors.amountGroup))">
+              {{formErrors.thirdAmount}}
+              {{formErrors.amountGroup}}
+            </span>
+
+
+            <span *ngIf="(employeeForm.value.amountGroup.thirdAmount && formErrors.amountGroup=='undefined ')">
+              <span class="help-block"
+                *ngIf="employeeForm.value.amountGroup.compareAmount>=employeeForm.value.amountGroup.thirdAmount">
+                should be greater than compareAmount
+              </span>
+            </span>
+
+          </div>
+        </div>
+      </div>
+
+      <div class="well">
+        <div formGroupName="skills">
+          <div class="form-group" [ngClass]="{'has-error' : formErrors.skillName}">
+            <label class="col-sm-2 control-label" for="skillName">
+              Skill
+            </label>
+            <div class="col-sm-4">
+              <input type="text" class="form-control" id="skillName" placeholder="C#,Java,Angulae etc.."
+                formControlName="skillName" (blur)="logValidationErrors()">
+              <span class="help-block" *ngIf="formErrors.skillName">
+                {{formErrors.skillName}}
+              </span>
+            </div>
+          </div>
+
+          <div class="form-group" [ngClass]="{'has-error': formErrors.experienceInYears}">
             <label class="col-sm-2 control-label" for="experienceInYears">
               Experience
             </label>
-          <div class="col-sm-4">
-            <input type="text" placeholder="in Years"
-                class="form-control" formControlName="experienceInYears" (blur)="logValidationErrors()">
-                <span class="help-block" *ngIf="formErrors.experienceInYears">
-                    {{formErrors.experienceInYears}}
-                </span>
-          </div>        
-      </div> 
+            <div class="col-sm-4">
+              <input type="text" placeholder="in Years" class="form-control" formControlName="experienceInYears"
+                (blur)="logValidationErrors()">
+              <span class="help-block" *ngIf="formErrors.experienceInYears">
+                {{formErrors.experienceInYears}}
+              </span>
+            </div>
+          </div>
 
-        <div class="form-group" [ngClass]="{'has-error': formErrors.proficiency}">
-      <label class="col-md-2 control-label">Proficiency</label>
-      <div class="col-md-8">
-        <label class="radio-inline">
-          <input type="radio" value="beginner" formControlName="proficiency"
-                 (blur)="logValidationErrors()">Beginner
-        </label>
-        <label class="radio-inline">
-          <input type="radio" value="intermediate" formControlName="proficiency"
-                 (blur)="logValidationErrors()">Intermediate
-        </label>
-        <label class="radio-inline">
-          <input type="radio" value="advanced" formControlName="proficiency"
-                 (blur)="logValidationErrors()">Advanced
-        </label>
-        <span class="help-block" *ngIf="formErrors.experienceInYears">
-          {{formErrors.proficiency}}
-        </span>
+          <div class="form-group" [ngClass]="{'has-error': formErrors.proficiency}">
+            <label class="col-md-2 control-label">Proficiency</label>
+            <div class="col-md-8">
+              <label class="radio-inline">
+                <input type="radio" value="beginner" formControlName="proficiency"
+                  (blur)="logValidationErrors()">Beginner
+              </label>
+              <label class="radio-inline">
+                <input type="radio" value="intermediate" formControlName="proficiency"
+                  (blur)="logValidationErrors()">Intermediate
+              </label>
+              <label class="radio-inline">
+                <input type="radio" value="advanced" formControlName="proficiency"
+                  (blur)="logValidationErrors()">Advanced
+              </label>
+              <span class="help-block" *ngIf="formErrors.experienceInYears">
+                {{formErrors.proficiency}}
+              </span>
+            </div>
+          </div>
+        </div>
       </div>
-    </div>     
-  </div>
-</div>
 
-      
+
 
     </div>
     <div class="panel-footer">
       <div class="btn-toolbar">
-      <button class="btn btn-primary" type="submit">Save</button>
-      <button class="btn btn-primary" type="button" (click)="onLoadDataClick()">Load Data</button>
-    </div>
+        <button class="btn btn-primary" type="submit">Save</button>
+        <button class="btn btn-primary" type="button" (click)="onLoadDataClick()">Load Data</button>
+      </div>
     </div>
   </div>
 </form>
