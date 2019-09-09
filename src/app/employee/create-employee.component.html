@@ -92,8 +92,7 @@
           <input id="thirdAmount"  autocomplete="off" formControlName="thirdAmount" type="text" class="form-control"
             (blur)="logValidationErrors()" [textMask]="amountMask" [appUnmask]="amountUnmask">
             <span class="help-block" *ngIf="formErrors.thirdAmount || formErrors.amountGroup">
-                {{formErrors.thirdAmount}}
-                {{formErrors.amountGroup}}
+                {{formErrors.thirdAmount ? formErrors.thirdAmount : formErrors.amountGroup }}
             </span>
         </div>        
       </div>
