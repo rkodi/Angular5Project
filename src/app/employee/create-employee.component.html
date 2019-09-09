@@ -98,6 +98,46 @@
       </div>
     </div>
 
+    <div>
+      <div>
+        <label>Total of values</label>
+      </div>
+    </div>
+
+    <div class="container-fluid">
+      <div class="row">
+        <div class="form-group col-xs-3 col-sm-3" align="center">
+          <label>Method 1</label>
+            <select class="form-control" formControlName="method1" placeholder="method1"  required (chnage)="setTotalValue()">
+              <option *ngFor="let method of method1" [ngValue]="method" >{{method.name}}</option>
+            </select>
+        </div>
+
+        <div class="form-group col-xs-3 col-sm-3" align="center">
+          <label>Method 2</label>
+            <select class="form-control" formControlName="method2" placeholder="method2"  required (chnage)="setTotalValue()">
+              <option *ngFor="let method of method2" [ngValue]="method" >{{method.name}}</option>
+            </select>
+        </div>
+
+        <div class="form-group col-xs-3 col-sm-3" align="center">
+          <label>Method 3</label>
+            <select class="form-control" formControlName="methodTotal" placeholder="method3"  required (chnage)="setTotalValue()">
+              <option *ngFor="let method of method3" [ngValue]="method" >{{method.name}}</option>
+            </select>
+        </div>
+
+        <div class="form-group col-xs-3 col-sm-3" align="center" [ngClass]="{'has-error' : formErrors.thirdAmount || formErrors.amountGroup}">
+          <label>Method Total</label>
+            <input class="form-control" formControlName="methodTotal" placeholder="{{this.methodTotal + '%' }}" (blur)="logValidationErrors()"  (chnage)="setTotalValue()">
+            <span class="help-block" *ngIf="">
+                Total must be 100%
+            </span>
+        </div>
+
+      </div>
+    </div>
+
       <div class="well">
       <div formGroupName="skills">
         <div class="form-group" [ngClass]="{'has-error' : formErrors.skillName}">

@@ -1,3 +1,5 @@
+import { Percentage } from './models/percentage.model';
+import { percentageList } from './services/percentage-list';
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators, AbstractControl, FormArray, FormControl, ValidatorFn } from '@angular/forms';
 import { CustomValidators } from '../shared/custom.validators';
@@ -15,6 +17,10 @@ export class CreateEmployeeComponent implements OnInit {
 
   employeeForm: FormGroup;
   fullNameLength = 0;
+  public method1: Percentage[] = percentageList;
+  public method2: Percentage[] = percentageList;
+  public method3: Percentage[] = percentageList;
+  public methodTotal: number = 0;
   amountUnmask = /[^\d.-]/g
   amountMask = Object.freeze({
     mask: createNumberMask({
@@ -127,7 +133,11 @@ export class CreateEmployeeComponent implements OnInit {
         skillName: ['', Validators.required],
         experienceInYears: ['', Validators.required],
         proficiency: ['', Validators.required]
-      })
+      }),
+        method1: [this.method1[0],[Validators.required]],
+        method2: [this.method1[0],[Validators.required]],
+        method3: [this.method1[0],[Validators.required]],
+        methodTotal: ['',[Validators.required]]
     });
 
     this.employeeForm.get('contactPreference').valueChanges.subscribe((data: string) => {
@@ -141,6 +151,14 @@ export class CreateEmployeeComponent implements OnInit {
     // this.employeeForm.get('fullName').valueChanges.subscribe((value: string) => {
     //   this.fullNameLength = value.length;
     // });
+  }
+
+  setTotalValue() {
+    this.calculateTotalValue()
+  }
+
+  calculateTotalValue() {
+    this.methodTotal = Number(this.employeeForm.get('method1').value.value) + Number(this.employeeForm.get('method2').value.value) + Number(this.employeeForm.get('method3').value.value);
   }
 
   matchValidator(control: AbstractControl): { [key: string]: boolean } | null {
