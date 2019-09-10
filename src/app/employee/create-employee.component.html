@@ -135,87 +135,130 @@
         </div>
       </div>
 
-<!--      
-      <div class="well">
+      <div>
+        <div>
+          <label>Total of Methods</label>
+        </div>
+      </div>
+  
+      <div class="container-fluid">
+        <div class="row">
+          <div class="form-group col-xs-3 col-sm-3" align="center">
+            <label>Method 1</label>
+              <select class="form-control" formControlName="method1" placeholder="method1"  required (change)="setTotalValue()">
+                <option *ngFor="let method of method1" [ngValue]="method" >{{method.name}}</option>
+              </select>
+          </div>
+  
+          <div class="form-group col-xs-3 col-sm-3" align="center">
+            <label>Method 2</label>
+              <select class="form-control" formControlName="method2" placeholder="method2"  required (change)="setTotalValue()">
+                <option *ngFor="let method of method2" [ngValue]="method" >{{method.name}}</option>
+              </select>
+          </div>
+  
+          <div class="form-group col-xs-3 col-sm-3" align="center">
+            <label>Method 3</label>
+              <select class="form-control" formControlName="method3" placeholder="method3"  required (change)="setTotalValue()">
+                <option *ngFor="let method of method3" [ngValue]="method" >{{method.name}}</option>
+              </select>
+          </div>
+  
+          <div class="form-group col-xs-3 col-sm-3" align="center" [ngClass]="{'has-error' : this.methodTotal != 100 && this.methodTotal}">
+            <label>Method Total</label>
+              <input type="text" class="form-control" [attr.disabled]="true" formControlName="methodTotal" placeholder="{{this.methodTotal + '%' }}"  >
+              <span class="help-block" *ngIf="this.methodTotal >= 101" >
+                  Total must be 100%
+              </span>
+              <span class="help-block" *ngIf="this.methodTotal < 99 && this.methodTotal" >
+                  Total must be 100%
+              </span>
+          </div>
+  
+        </div>
+      </div>
+  
+        <!-- <div class="well">
         <div formGroupName="skills">
           <div class="form-group" [ngClass]="{'has-error' : formErrors.skillName}">
             <label class="col-sm-2 control-label" for="skillName">
               Skill
             </label>
             <div class="col-sm-4">
-              <input type="text" class="form-control" id="skillName" placeholder="C#,Java,Angulae etc.."
-                formControlName="skillName" (blur)="logValidationErrors()">
-              <span class="help-block" *ngIf="formErrors.skillName">
-                {{formErrors.skillName}}
-              </span>
+              <input type="text" class="form-control" id="skillName"
+                  placeholder="C#,Java,Angulae etc.." formControlName="skillName" (blur)="logValidationErrors()">
+                  <span class="help-block" *ngIf="formErrors.skillName">
+                      {{formErrors.skillName}}
+                  </span>
             </div>
           </div>
-
+  
           <div class="form-group" [ngClass]="{'has-error': formErrors.experienceInYears}">
-            <label class="col-sm-2 control-label" for="experienceInYears">
-              Experience
-            </label>
+              <label class="col-sm-2 control-label" for="experienceInYears">
+                Experience
+              </label>
             <div class="col-sm-4">
-              <input type="text" placeholder="in Years" class="form-control" formControlName="experienceInYears"
-                (blur)="logValidationErrors()">
-              <span class="help-block" *ngIf="formErrors.experienceInYears">
-                {{formErrors.experienceInYears}}
-              </span>
-            </div>
-          </div>
-
+              <input type="text" placeholder="in Years"
+                  class="form-control" formControlName="experienceInYears" (blur)="logValidationErrors()">
+                  <span class="help-block" *ngIf="formErrors.experienceInYears">
+                      {{formErrors.experienceInYears}}
+                  </span>
+            </div>        
+        </div> 
+  
           <div class="form-group" [ngClass]="{'has-error': formErrors.proficiency}">
-            <label class="col-md-2 control-label">Proficiency</label>
-            <div class="col-md-8">
-              <label class="radio-inline">
-                <input type="radio" value="beginner" formControlName="proficiency"
-                  (blur)="logValidationErrors()">Beginner
-              </label>
-              <label class="radio-inline">
-                <input type="radio" value="intermediate" formControlName="proficiency"
-                  (blur)="logValidationErrors()">Intermediate
-              </label>
-              <label class="radio-inline">
-                <input type="radio" value="advanced" formControlName="proficiency"
-                  (blur)="logValidationErrors()">Advanced
-              </label>
-              <span class="help-block" *ngIf="formErrors.experienceInYears">
-                {{formErrors.proficiency}}
-              </span>
-            </div>
-          </div>
+        <label class="col-md-2 control-label">Proficiency</label>
+        <div class="col-md-8">
+          <label class="radio-inline">
+            <input type="radio" value="beginner" formControlName="proficiency"
+                   (blur)="logValidationErrors()">Beginner
+          </label>
+          <label class="radio-inline">
+            <input type="radio" value="intermediate" formControlName="proficiency"
+                   (blur)="logValidationErrors()">Intermediate
+          </label>
+          <label class="radio-inline">
+            <input type="radio" value="advanced" formControlName="proficiency"
+                   (blur)="logValidationErrors()">Advanced
+          </label>
+          <span class="help-block" *ngIf="formErrors.experienceInYears">
+            {{formErrors.proficiency}}
+          </span>
         </div>
-      </div> -->
-
-
-
+      </div>     
     </div>
-    <div class="panel-footer">
-      <div class="btn-toolbar">
+  </div> -->
+  
+        
+  
+      </div>
+      <div class="panel-footer">
+        <div class="btn-toolbar">
         <button class="btn btn-primary" type="submit">Save</button>
         <button class="btn btn-primary" type="button" (click)="onLoadDataClick()">Load Data</button>
+        <button class="btn btn-primary" type="button" (click)="continue()">Continue</button>
+      </div>
       </div>
     </div>
-  </div>
-</form>
-
-<!-- <table border="1">
-  <tr>
-    <th style="padding: 10px">FormGroup</th>
-    <th style="padding: 10px">FormControl (email)</th>
-  </tr>
-  <tr>
-    <td style="padding: 10px">
-      touched : {{ employeeForm.touched }}
-      <br/> dirty : {{ employeeForm.dirty }}
-      <br/> valid : {{ employeeForm.valid }}
-      <br/> Form Values : {{employeeForm.value | json}}
-    </td>
-    <td style="padding: 10px">
-      touched : {{ employeeForm.get('annualAmount').touched }}
-      <br/> dirty : {{ employeeForm.get('annualAmount').dirty }}
-      <br/> valid : {{ employeeForm.get('annualAmount').valid }}
-      <br/> annualAmount Value : {{employeeForm.get('annualAmount').value}}
-    </td>
-  </tr>
-</table> -->
+  </form>
+  
+  <!-- <table border="1">
+    <tr>
+      <th style="padding: 10px">FormGroup</th>
+      <th style="padding: 10px">FormControl (email)</th>
+    </tr>
+    <tr>
+      <td style="padding: 10px">
+        touched : {{ employeeForm.touched }}
+        <br/> dirty : {{ employeeForm.dirty }}
+        <br/> valid : {{ employeeForm.valid }}
+        <br/> Form Values : {{employeeForm.value | json}}
+      </td>
+      <td style="padding: 10px">
+        touched : {{ employeeForm.get('annualAmount').touched }}
+        <br/> dirty : {{ employeeForm.get('annualAmount').dirty }}
+        <br/> valid : {{ employeeForm.get('annualAmount').valid }}
+        <br/> annualAmount Value : {{employeeForm.get('annualAmount').value}}
+      </td>
+    </tr>
+  </table> -->

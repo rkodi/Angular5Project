@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators, AbstractControl, FormArray, FormControl, ValidatorFn } from '@angular/forms';
 import { CustomValidators } from '../shared/custom.validators';
 import createNumberMask from 'text-mask-addons/dist/createNumberMask';
+import { Percentage } from './models/percentage.model';
+import { percentageList } from './services/percentage-list';
 
 
 @Component({
@@ -13,6 +15,10 @@ export class CreateEmployeeComponent implements OnInit {
 
 
   employeeForm: FormGroup;
+  public method1: Percentage[] = percentageList;
+  public method2: Percentage[] = percentageList;
+  public method3: Percentage[] = percentageList;
+  public methodTotal: number = 0;
   fullNameLength = 0;
   amountUnmask = /[^\d.-]/g
   amountMask = Object.freeze({
@@ -127,7 +133,11 @@ export class CreateEmployeeComponent implements OnInit {
         skillName: ['', Validators.required],
         experienceInYears: ['', Validators.required],
         proficiency: ['', Validators.required]
-      })
+      }),
+      method1: [this.method1[0],[Validators.required]],
+      method2: [this.method2[0],[Validators.required]],
+      method3: [this.method3[0],[Validators.required]],
+      methodTotal: ['',[Validators.required]]
     });
 
     this.employeeForm.get('contactPreference').valueChanges.subscribe((data: string) => {
@@ -201,6 +211,16 @@ export class CreateEmployeeComponent implements OnInit {
     });
   }
 
+  setTotalValue() {
+    this.calculateTotalValue()
+    console.log(this.calculateTotalValue);
+  }
+
+  calculateTotalValue() {
+    this.methodTotal = Number(this.employeeForm.get('method1').value.value) + Number(this.employeeForm.get('method2').value.value) + Number(this.employeeForm.get('method3').value.value);
+    console.log(this.methodTotal);
+  }
+
 
   // this.employeeForm = new FormGroup({
   //   fullName: new FormControl(),
@@ -267,6 +287,28 @@ export class CreateEmployeeComponent implements OnInit {
     // console.log(this.employeeForm.controls.fullName.touched);
     // console.log(this.employeeForm.get('fullName').value);
   }
+  continue() {
+    this.employeeForm.get('fullName').markAsTouched();
+    // this.employeeForm.get('email').markAsTouched();
+    // this.employeeForm.get('confirmEmail').markAsTouched();
+    // this.employeeForm.get('annualAmount').markAsTouched();
+    // this.employeeForm.get('compareAmount').markAsTouched();
+    // this.employeeForm.get('thirdAmount').markAsTouched();
+    // this.employeeForm.get('skillName').markAsTouched();
+    // this.employeeForm.get('experienceInYears').markAsTouched();
+
+  //   if (this.employeeForm.valid && this.methodTotal === 100) {
+  //     console.log('validation success')
+  //   }else {
+
+  //     const invalidElements = this.element.nativeElement.querySelectAll('input.ng-invalid');
+  //     if(invalidElements.length > 0) {
+  //       invalidElements[0].focus();
+  //     }
+  //   }
+  }
+
+
 
 
   checkValuesCompareAmount() {
