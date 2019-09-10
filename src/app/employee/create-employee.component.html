@@ -85,12 +85,20 @@
 
             <span *ngIf="(employeeForm.value.amountGroup.compareAmount && formErrors.amountGroup=='undefined ')">
               <span class="help-block"
-                *ngIf="employeeForm.value.amountGroup.annualAmount>=employeeForm.value.amountGroup.compareAmount">
+                *ngIf="checkValuesCompareAmount()">
                 should be greater than annual
               </span>
 
             </span>
 
+
+            <span *ngIf="(employeeForm.value.amountGroup.compareAmount && formErrors.amountGroup=='')">
+              <span class="help-block"
+                *ngIf="checkValuesCompareAmount()">
+                should be greater than annual
+              </span>
+
+            </span>
 
 
           </div>
@@ -111,16 +119,30 @@
 
             <span *ngIf="(employeeForm.value.amountGroup.thirdAmount && formErrors.amountGroup=='undefined ')">
               <span class="help-block"
-                *ngIf="employeeForm.value.amountGroup.compareAmount>=employeeForm.value.amountGroup.thirdAmount">
+                *ngIf="checkValuesthirdAmount()">
                 should be greater than compareAmount
               </span>
             </span>
+
+
+            <span *ngIf="(employeeForm.value.amountGroup.thirdAmount && formErrors.amountGroup=='')">
+              <span class="help-block"
+                *ngIf="checkValuesthirdAmount()">
+                should be greater than compareAmount
+              </span>
+            </span>
+
 
           </div>
         </div>
       </div>
 
+<<<<<<< HEAD
       <!-- <div class="well">
+=======
+     
+      <div class="well">
+>>>>>>> 8f54cb5b357d531543ea3b6eb8690337ce333b44
         <div formGroupName="skills">
           <div class="form-group" [ngClass]="{'has-error' : formErrors.skillName}">
             <label class="col-sm-2 control-label" for="skillName">
