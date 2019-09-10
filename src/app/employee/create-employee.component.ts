@@ -60,8 +60,8 @@ export class CreateEmployeeComponent implements OnInit {
       'emailMismatch': 'Email and Confirm email dose not match.'
     },
     'amountGroup': {
-
-      // 'compareLessThanAnnualAmount2': 'thirdAmount can not be dreater than Compare.',
+      'compareLessThanAnnualAmount1': 'Compare Amount can not be grater than Amout.',
+      // 'compareLessThanAnnualAmount2': 'thirdAmount can not be grater than Compare.',
 
     },
     'phone': {
@@ -182,8 +182,8 @@ export class CreateEmployeeComponent implements OnInit {
       if (abstractControl && !abstractControl.valid &&
         (abstractControl.touched || abstractControl.dirty)) {
         const messages = this.validationMessages[key];
-        // console.log(messages);
-        // console.log(abstractControl.errors);
+        console.log(messages);
+        console.log(abstractControl.errors);
 
         for (const errorKey in abstractControl.errors) {
           if (errorKey) {
