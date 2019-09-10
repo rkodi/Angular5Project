@@ -80,13 +80,12 @@
             <span class="help-block"
               *ngIf="((formErrors.amountGroup!='undefined ') && (formErrors.compareAmount || formErrors.amountGroup))">
               {{formErrors.compareAmount}}
-              {{formErrors.amountGroup}}
             </span>
 
             <span *ngIf="(employeeForm.value.amountGroup.compareAmount && formErrors.amountGroup=='undefined ')">
               <span class="help-block"
                 *ngIf="checkValuesCompareAmount()">
-                should be greater than annual
+                Compare can not be grater than Amount
               </span>
 
             </span>
@@ -94,7 +93,7 @@
             <span *ngIf="(employeeForm.value.amountGroup.compareAmount && formErrors.amountGroup=='')">
               <span class="help-block"
                 *ngIf="checkValuesCompareAmount()">
-                should be greater than annual
+                Compare can not be grater than Amount
               </span>
 
             </span>
@@ -135,7 +134,7 @@
         </div>
       </div>
 
-     
+<!--      
       <div class="well">
         <div formGroupName="skills">
           <div class="form-group" [ngClass]="{'has-error' : formErrors.skillName}">
@@ -185,7 +184,7 @@
             </div>
           </div>
         </div>
-      </div>
+      </div> -->
 
 
 

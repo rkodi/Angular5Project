@@ -280,14 +280,14 @@ export class CreateEmployeeComponent implements OnInit {
       let AnnualAmountchk = Number(this.employeeForm.value.amountGroup.annualAmount);
 
       if (CompareAmountchk && this.formErrors.amountGroup == 'undefined ') {
-        if (AnnualAmountchk >= CompareAmountchk) {
+        if (AnnualAmountchk <= CompareAmountchk) {
           return true;
         }
       }
       else {
 
         if (AnnualAmountchk && CompareAmountchk) {
-          if (AnnualAmountchk >= CompareAmountchk) {
+          if (AnnualAmountchk <= CompareAmountchk) {
             return true;
           }
         }
