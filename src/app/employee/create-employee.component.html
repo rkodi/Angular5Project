@@ -65,7 +65,7 @@
           <label class="col-sm-2 control-label" for="annualAmount">Amount</label>
           <div class="col-sm-8">
             <input id="annualAmount" formControlName="annualAmount" maxLength="16" type="text" class="form-control"
-              (blur)="logValidationErrors()" [textMask]="amountMask" [appUnmask]="amountUnmask">
+              (blur)="logValidationErrors();checkValuesCompareAmount()" [textMask]="amountMask" [appUnmask]="amountUnmask">
             <span class="help-block" *ngIf="formErrors.annualAmount">
               {{formErrors.annualAmount}}
             </span>
@@ -77,24 +77,25 @@
           <div class="col-sm-8">
             <input id="compareAmount" formControlName="compareAmount" maxLength="10" type="text" class="form-control"
               (blur)="logValidationErrors()" [textMask]="amountMask" [appUnmask]="amountUnmask">
-            <span class="help-block"
-              *ngIf="((formErrors.amountGroup!='undefined ') && (formErrors.compareAmount || formErrors.amountGroup))">
+            <span class="help-block" *ngIf="((formErrors.amountGroup!='undefined ') && (formErrors.compareAmount))">
               {{formErrors.compareAmount}}
+            </span>
+
+            <span class="help-block" *ngIf="((formErrors.amountGroup!='undefined ') && (formErrors.amountGroup))">
               {{formErrors.amountGroup}}
             </span>
 
+
             <span *ngIf="(employeeForm.value.amountGroup.compareAmount && formErrors.amountGroup=='undefined ')">
-              <span class="help-block"
-                *ngIf="checkValuesCompareAmount()">
-                Compare can not be greater than  Amount
+              <span class="help-block" *ngIf="checkValuesCompareAmount()">
+                Compare can not be greater than Amount
               </span>
 
             </span>
 
-            <span *ngIf="(employeeForm.value.amountGroup.compareAmount && formErrors.amountGroup=='')">
-              <span class="help-block"
-                *ngIf="checkValuesCompareAmount()">
-                Compare can not greater than  Amount
+            <span *ngIf="(employeeForm.value.amountGroup.compareAmount && formErrors.amountGroup=='' && formErrors.compareAmount=='')">
+              <span class="help-block" *ngIf="checkValuesCompareAmount()">
+                Compare can not greater than Amount
               </span>
 
             </span>
@@ -110,23 +111,26 @@
               (blur)="logValidationErrors()" [textMask]="amountMask" [appUnmask]="amountUnmask">
 
             <span class="help-block"
-              *ngIf="((formErrors.amountGroup!='undefined ') && (formErrors.thirdAmount || formErrors.amountGroup))">
-              {{formErrors.thirdAmount}}
+              *ngIf="((formErrors.amountGroup!='undefined ') && (formErrors.amountGroup))">
               {{formErrors.amountGroup}}
             </span>
 
+            <span class="help-block"
+            *ngIf="((formErrors.amountGroup!='undefined ') && (formErrors.thirdAmount))">
+            {{formErrors.thirdAmount}}
+          </span>
+
+
 
             <span *ngIf="(employeeForm.value.amountGroup.thirdAmount && formErrors.amountGroup=='undefined ')">
-              <span class="help-block"
-                *ngIf="checkValuesthirdAmount()">
+              <span class="help-block" *ngIf="checkValuesthirdAmount()">
                 should be greater than compareAmount
               </span>
             </span>
 
-            <span *ngIf="(employeeForm.value.amountGroup.thirdAmount && formErrors.amountGroup=='')">
-              <span class="help-block"
-                *ngIf="checkValuesthirdAmount()">
-                should be greater than compareAmount
+            <span *ngIf="(employeeForm.value.amountGroup.thirdAmount && formErrors.amountGroup=='' && formErrors.thirdAmount=='')">
+              <span class="help-block" *ngIf="checkValuesthirdAmount()">
+                should be greater than compareAmount and Less than Annual Amount
               </span>
             </span>
 
@@ -134,51 +138,58 @@
           </div>
         </div>
       </div>
+
+      
 
       <div>
         <div>
           <label>Total of Methods</label>
         </div>
       </div>
-  
+
       <div class="container-fluid">
         <div class="row">
           <div class="form-group col-xs-3 col-sm-3" align="center">
             <label>Method 1</label>
-              <select class="form-control" formControlName="method1" placeholder="method1"  required (change)="setTotalValue()">
-                <option *ngFor="let method of method1" [ngValue]="method" >{{method.name}}</option>
-              </select>
+            <select class="form-control" formControlName="method1" placeholder="method1" required
+              (change)="setTotalValue()">
+              <option *ngFor="let method of method1" [ngValue]="method">{{method.name}}</option>
+            </select>
           </div>
-  
+
           <div class="form-group col-xs-3 col-sm-3" align="center">
             <label>Method 2</label>
-              <select class="form-control" formControlName="method2" placeholder="method2"  required (change)="setTotalValue()">
-                <option *ngFor="let method of method2" [ngValue]="method" >{{method.name}}</option>
-              </select>
+            <select class="form-control" formControlName="method2" placeholder="method2" required
+              (change)="setTotalValue()">
+              <option *ngFor="let method of method2" [ngValue]="method">{{method.name}}</option>
+            </select>
           </div>
-  
+
           <div class="form-group col-xs-3 col-sm-3" align="center">
             <label>Method 3</label>
-              <select class="form-control" formControlName="method3" placeholder="method3"  required (change)="setTotalValue()">
-                <option *ngFor="let method of method3" [ngValue]="method" >{{method.name}}</option>
-              </select>
+            <select class="form-control" formControlName="method3" placeholder="method3" required
+              (change)="setTotalValue()">
+              <option *ngFor="let method of method3" [ngValue]="method">{{method.name}}</option>
+            </select>
           </div>
-  
-          <div class="form-group col-xs-3 col-sm-3" align="center" [ngClass]="{'has-error' : this.methodTotal != 100 && this.methodTotal}">
+
+          <div class="form-group col-xs-3 col-sm-3" align="center"
+            [ngClass]="{'has-error' : this.methodTotal != 100 && this.methodTotal}">
             <label>Method Total</label>
-              <input type="text" class="form-control" [attr.disabled]="true" formControlName="methodTotal" placeholder="{{this.methodTotal + '%' }}"  >
-              <span class="help-block" *ngIf="this.methodTotal >= 101" >
-                  Total must be 100%
-              </span>
-              <span class="help-block" *ngIf="this.methodTotal < 99 && this.methodTotal" >
-                  Total must be 100%
-              </span>
+            <input type="text" class="form-control" [attr.disabled]="true" formControlName="methodTotal"
+              placeholder="{{this.methodTotal + '%' }}">
+            <span class="help-block" *ngIf="this.methodTotal >= 101">
+              Total must be 100%
+            </span>
+            <span class="help-block" *ngIf="this.methodTotal < 99 && this.methodTotal">
+              Total must be 100%
+            </span>
           </div>
-  
+
         </div>
       </div>
-  
-        <!-- <div class="well">
+
+      <!-- <div class="well">
         <div formGroupName="skills">
           <div class="form-group" [ngClass]="{'has-error' : formErrors.skillName}">
             <label class="col-sm-2 control-label" for="skillName">
@@ -228,21 +239,21 @@
       </div>     
     </div>
   </div> -->
-  
-        
-  
-      </div>
-      <div class="panel-footer">
-        <div class="btn-toolbar">
+
+
+
+    </div>
+    <div class="panel-footer">
+      <div class="btn-toolbar">
         <button class="btn btn-primary" type="submit">Save</button>
         <button class="btn btn-primary" type="button" (click)="onLoadDataClick()">Load Data</button>
         <button class="btn btn-primary" type="button" (click)="continue()">Continue</button>
       </div>
-      </div>
     </div>
-  </form>
-  
-  <!-- <table border="1">
+  </div>
+</form>
+
+<!-- <table border="1">
     <tr>
       <th style="padding: 10px">FormGroup</th>
       <th style="padding: 10px">FormControl (email)</th>

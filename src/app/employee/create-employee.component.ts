@@ -134,10 +134,10 @@ export class CreateEmployeeComponent implements OnInit {
         experienceInYears: ['', Validators.required],
         proficiency: ['', Validators.required]
       }),
-      method1: [this.method1[0],[Validators.required]],
-      method2: [this.method2[0],[Validators.required]],
-      method3: [this.method3[0],[Validators.required]],
-      methodTotal: ['',[Validators.required]]
+      method1: [this.method1[0], [Validators.required]],
+      method2: [this.method2[0], [Validators.required]],
+      method3: [this.method3[0], [Validators.required]],
+      methodTotal: ['', [Validators.required]]
     });
 
     this.employeeForm.get('contactPreference').valueChanges.subscribe((data: string) => {
@@ -297,15 +297,15 @@ export class CreateEmployeeComponent implements OnInit {
     // this.employeeForm.get('skillName').markAsTouched();
     // this.employeeForm.get('experienceInYears').markAsTouched();
 
-  //   if (this.employeeForm.valid && this.methodTotal === 100) {
-  //     console.log('validation success')
-  //   }else {
+    //   if (this.employeeForm.valid && this.methodTotal === 100) {
+    //     console.log('validation success')
+    //   }else {
 
-  //     const invalidElements = this.element.nativeElement.querySelectAll('input.ng-invalid');
-  //     if(invalidElements.length > 0) {
-  //       invalidElements[0].focus();
-  //     }
-  //   }
+    //     const invalidElements = this.element.nativeElement.querySelectAll('input.ng-invalid');
+    //     if(invalidElements.length > 0) {
+    //       invalidElements[0].focus();
+    //     }
+    //   }
   }
 
 
@@ -350,6 +350,7 @@ export class CreateEmployeeComponent implements OnInit {
     }
     else {
 
+      let AnnualAmountchk = Number(this.employeeForm.value.amountGroup.annualAmount);
       let CompareAmountchk = Number(this.employeeForm.value.amountGroup.compareAmount);
       let ThirdAmountchk = Number(this.employeeForm.value.amountGroup.thirdAmount);
 
@@ -364,6 +365,9 @@ export class CreateEmployeeComponent implements OnInit {
 
         if (ThirdAmountchk && CompareAmountchk) {
           if (CompareAmountchk >= ThirdAmountchk) {
+            return true;
+          }
+          else if (AnnualAmountchk <= ThirdAmountchk) {
             return true;
           }
         }
