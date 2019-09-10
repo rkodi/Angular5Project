@@ -271,10 +271,6 @@ export class CreateEmployeeComponent implements OnInit {
 
   checkValuesCompareAmount() {
 
-    debugger;
-
-
-
     if (((this.formErrors.amountGroup != 'undefined ') && (this.formErrors.compareAmount || this.formErrors.amountGroup))) {
       return true;
     }
