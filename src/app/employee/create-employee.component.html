@@ -86,12 +86,15 @@
         </div>        
       </div>
 
-      <div class="form-group" [ngClass]="{'has-error' : formErrors.thirdAmount || formErrors.amountGroup}">
+      <div class="form-group" [ngClass]="{'has-error' : formErrors.thirdAmount }">
         <label class="col-sm-2 control-label"  for="thirdAmount">Third Amount</label>
         <div class="col-sm-8">
           <input id="thirdAmount"  autocomplete="off" formControlName="thirdAmount" type="text" class="form-control"
             (blur)="logValidationErrors()" [textMask]="amountMask" [appUnmask]="amountUnmask">
-            <span class="help-block" *ngIf="formErrors.thirdAmount || formErrors.amountGroup">
+            <span class="help-block" *ngIf="formErrors.thirdAmount ">
+                {{formErrors.thirdAmount ? formErrors.thirdAmount : formErrors.amountGroup }}
+            </span>
+            <span class="help-block" *ngIf="formErrors.thirdAmount ">
                 {{formErrors.thirdAmount ? formErrors.thirdAmount : formErrors.amountGroup }}
             </span>
         </div>        
@@ -100,7 +103,7 @@
 
     <div>
       <div>
-        <label>Total of values</label>
+        <label>Total of Methods</label>
       </div>
     </div>
 
@@ -108,29 +111,32 @@
       <div class="row">
         <div class="form-group col-xs-3 col-sm-3" align="center">
           <label>Method 1</label>
-            <select class="form-control" formControlName="method1" placeholder="method1"  required (chnage)="setTotalValue()">
+            <select class="form-control" formControlName="method1" placeholder="method1"  required (change)="setTotalValue()">
               <option *ngFor="let method of method1" [ngValue]="method" >{{method.name}}</option>
             </select>
         </div>
 
         <div class="form-group col-xs-3 col-sm-3" align="center">
           <label>Method 2</label>
-            <select class="form-control" formControlName="method2" placeholder="method2"  required (chnage)="setTotalValue()">
+            <select class="form-control" formControlName="method2" placeholder="method2"  required (change)="setTotalValue()">
               <option *ngFor="let method of method2" [ngValue]="method" >{{method.name}}</option>
             </select>
         </div>
 
         <div class="form-group col-xs-3 col-sm-3" align="center">
           <label>Method 3</label>
-            <select class="form-control" formControlName="methodTotal" placeholder="method3"  required (chnage)="setTotalValue()">
+            <select class="form-control" formControlName="method3" placeholder="method3"  required (change)="setTotalValue()">
               <option *ngFor="let method of method3" [ngValue]="method" >{{method.name}}</option>
             </select>
         </div>
 
-        <div class="form-group col-xs-3 col-sm-3" align="center" [ngClass]="{'has-error' : formErrors.thirdAmount || formErrors.amountGroup}">
+        <div class="form-group col-xs-3 col-sm-3" align="center" [ngClass]="{'has-error' : this.methodTotal != 100 && this.methodTotal}">
           <label>Method Total</label>
-            <input class="form-control" formControlName="methodTotal" placeholder="{{this.methodTotal + '%' }}" (blur)="logValidationErrors()"  (chnage)="setTotalValue()">
-            <span class="help-block" *ngIf="">
+            <input type="text" class="form-control" [attr.disabled]="true" formControlName="methodTotal" placeholder="{{this.methodTotal + '%' }}"  >
+            <span class="help-block" *ngIf="this.methodTotal >= 101" >
+                Total must be 100%
+            </span>
+            <span class="help-block" *ngIf="this.methodTotal < 99 && this.methodTotal" >
                 Total must be 100%
             </span>
         </div>
@@ -196,6 +202,7 @@
       <div class="btn-toolbar">
       <button class="btn btn-primary" type="submit">Save</button>
       <button class="btn btn-primary" type="button" (click)="onLoadDataClick()">Load Data</button>
+      <button class="btn btn-primary" type="button" (click)="continue()">Continue</button>
     </div>
     </div>
   </div>
