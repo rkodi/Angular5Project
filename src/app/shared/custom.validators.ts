@@ -31,7 +31,7 @@ export class CustomValidators {
                 return null;
                     
                 
-            } else if(Number(annualAmount) <= 999.00 || Number(annualAmount) >= 10000001.00) {
+            } else if(Number(annualAmount) <= 999.00 || Number(annualAmount) >= 1000000001.00) {
                 return {'annualAmountMinMax1': true}
             }
                 
@@ -45,6 +45,18 @@ export class CustomValidators {
                 
             } else if(Number(compareAmount) >= 50001.00) {
                 return {'compareAmountMinMax': true}
+            }
+                
+           
+        }
+
+    static thirdAmountMinMax(control: FormControl):  any {
+            let thirdAmount: any = control.value;
+            if(thirdAmount === '') {                
+                return null;             
+                
+            } else if(Number(thirdAmount) >= 100001.00) {
+                return {'thirdAmountMinMax': true}
             }
                 
            

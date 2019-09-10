@@ -64,7 +64,7 @@
         <div class="form-group" [ngClass]="{'has-error' : formErrors.annualAmount}">
           <label class="col-sm-2 control-label" for="annualAmount">Amount</label>
           <div class="col-sm-8">
-            <input id="annualAmount" formControlName="annualAmount" type="text" class="form-control"
+            <input id="annualAmount" formControlName="annualAmount" maxLength="16" type="text" class="form-control"
               (blur)="logValidationErrors()" [textMask]="amountMask" [appUnmask]="amountUnmask">
             <span class="help-block" *ngIf="formErrors.annualAmount">
               {{formErrors.annualAmount}}
@@ -75,17 +75,18 @@
         <div class="form-group" [ngClass]="{'has-error' : checkValuesCompareAmount()}">
           <label class="col-sm-2 control-label" for="compareAmount">Compare Amount</label>
           <div class="col-sm-8">
-            <input id="compareAmount" formControlName="compareAmount" type="text" class="form-control"
+            <input id="compareAmount" formControlName="compareAmount" maxLength="10" type="text" class="form-control"
               (blur)="logValidationErrors()" [textMask]="amountMask" [appUnmask]="amountUnmask">
             <span class="help-block"
               *ngIf="((formErrors.amountGroup!='undefined ') && (formErrors.compareAmount || formErrors.amountGroup))">
               {{formErrors.compareAmount}}
+              {{formErrors.amountGroup}}
             </span>
 
             <span *ngIf="(employeeForm.value.amountGroup.compareAmount && formErrors.amountGroup=='undefined ')">
               <span class="help-block"
                 *ngIf="checkValuesCompareAmount()">
-                Compare can not be grater than Amount
+                Compare can not be greater than  Amount
               </span>
 
             </span>
@@ -93,7 +94,7 @@
             <span *ngIf="(employeeForm.value.amountGroup.compareAmount && formErrors.amountGroup=='')">
               <span class="help-block"
                 *ngIf="checkValuesCompareAmount()">
-                Compare can not be grater than Amount
+                Compare can not greater than  Amount
               </span>
 
             </span>
@@ -105,7 +106,7 @@
         <div class="form-group" [ngClass]="{'has-error' : checkValuesthirdAmount()}">
           <label class="col-sm-2 control-label" for="thirdAmount">Third Amount</label>
           <div class="col-sm-8">
-            <input id="thirdAmount" formControlName="thirdAmount" type="text" class="form-control"
+            <input id="thirdAmount" formControlName="thirdAmount" maxLength="11" type="text" class="form-control"
               (blur)="logValidationErrors()" [textMask]="amountMask" [appUnmask]="amountUnmask">
 
             <span class="help-block"

@@ -81,7 +81,7 @@ export class CreateEmployeeComponent implements OnInit {
     },
     'thirdAmount': {
       'required': 'Third Amount is required.',
-      'compareAmountMinMax': 'Third Amount Must be less than 50,000.',
+      'thirdAmountMinMax': 'Third Amount Must be less than 100,000.',
     },
     'skillName': {
       'required': 'Skill Name is required.',
@@ -121,7 +121,7 @@ export class CreateEmployeeComponent implements OnInit {
           CustomValidators.compareAmountMinMax]],
         thirdAmount: ['', [
           Validators.required,
-          CustomValidators.compareAmountMinMax]],
+          CustomValidators.thirdAmountMinMax]],
       }, { validator: compareLessThanAnnual1 }),
       skills: this.fb.group({
         skillName: ['', Validators.required],
