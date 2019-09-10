@@ -271,20 +271,27 @@ export class CreateEmployeeComponent implements OnInit {
 
   checkValuesCompareAmount() {
 
+    debugger;
+
+
 
     if (((this.formErrors.amountGroup != 'undefined ') && (this.formErrors.compareAmount || this.formErrors.amountGroup))) {
       return true;
     }
     else {
-      if ((this.employeeForm.value.amountGroup.compareAmount && this.formErrors.amountGroup == 'undefined ')) {
-        if (this.employeeForm.value.amountGroup.annualAmount >= this.employeeForm.value.amountGroup.compareAmount) {
+
+      let CompareAmountchk = Number(this.employeeForm.value.amountGroup.compareAmount);
+      let AnnualAmountchk = Number(this.employeeForm.value.amountGroup.annualAmount);
+
+      if (CompareAmountchk && this.formErrors.amountGroup == 'undefined ') {
+        if (AnnualAmountchk >= CompareAmountchk) {
           return true;
         }
       }
       else {
 
-        if (this.employeeForm.value.amountGroup.annualAmount && this.employeeForm.value.amountGroup.compareAmount) {
-          if (this.employeeForm.value.amountGroup.annualAmount >= this.employeeForm.value.amountGroup.compareAmount) {
+        if (AnnualAmountchk && CompareAmountchk) {
+          if (AnnualAmountchk >= CompareAmountchk) {
             return true;
           }
         }
@@ -304,15 +311,21 @@ export class CreateEmployeeComponent implements OnInit {
       return true;
     }
     else {
-      if ((this.employeeForm.value.amountGroup.thirdAmount && this.formErrors.amountGroup == 'undefined ')) {
-        if (this.employeeForm.value.amountGroup.compareAmount >= this.employeeForm.value.amountGroup.thirdAmount) {
+
+      let CompareAmountchk = Number(this.employeeForm.value.amountGroup.compareAmount);
+      let ThirdAmountchk = Number(this.employeeForm.value.amountGroup.thirdAmount);
+
+
+
+      if ((ThirdAmountchk && this.formErrors.amountGroup == 'undefined ')) {
+        if (CompareAmountchk >= ThirdAmountchk) {
           return true;
         }
       }
       else {
 
-        if (this.employeeForm.value.amountGroup.thirdAmount && this.employeeForm.value.amountGroup.compareAmount) {
-          if (this.employeeForm.value.amountGroup.compareAmount >= this.employeeForm.value.amountGroup.thirdAmount) {
+        if (ThirdAmountchk && CompareAmountchk) {
+          if (CompareAmountchk >= ThirdAmountchk) {
             return true;
           }
         }
