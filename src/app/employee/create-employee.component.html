@@ -62,27 +62,27 @@
       </div> -->
 
       <div >
-        <div class="form-group" [ngClass]="{'has-error' : formErrors.annualAmount}">
-          <label class="col-sm-2 control-label" for="annualAmount">First Amount</label>
+        <div class="form-group" [ngClass]="{'has-error' : formErrors.annualCreditCardSales}">
+          <label class="col-sm-2 control-label" for="annualCreditCardSales">Annual Credit Card Sales</label>
           <div class="col-sm-8">
-            <input id="annualAmount" formControlName="annualAmount" maxLength="16" type="text" class="form-control"
-              (blur)="logValidationErrors();checkValuesCompareAmount()" [textMask]="amountMask" [appUnmask]="amountUnmask">
-            <span class="help-block" *ngIf="formErrors.annualAmount">
-              {{formErrors.annualAmount}}
+            <input id="annualCreditCardSales" formControlName="annualCreditCardSales" maxLength="16" type="text" class="form-control"
+              (blur)="logValidationErrors();checkValuesTypicalSalesAmount()" [textMask]="amountMask" [appUnmask]="amountUnmask">
+            <span class="help-block" *ngIf="formErrors.annualCreditCardSales">
+              {{formErrors.annualCreditCardSales}}
             </span>
           </div>
         </div>
 
-        <div class="form-group" [ngClass]="{'has-error' : checkValuesCompareAmount()}">
-          <label class="col-sm-2 control-label" for="compareAmount">Second Amount</label>
+        <div class="form-group" [ngClass]="{'has-error' : checkValuesTypicalSalesAmount()}">
+          <label class="col-sm-2 control-label" for="typicalSalesAmount">Typical Sales Amount</label>
           <div class="col-sm-8">
-            <input id="compareAmount" formControlName="compareAmount" maxLength="10" type="text" class="form-control"
+            <input id="typicalSalesAmount" formControlName="typicalSalesAmount" maxLength="10" type="text" class="form-control"
               (blur)="logValidationErrors()" [textMask]="amountMask" [appUnmask]="amountUnmask">
-            <span class="help-block" *ngIf="((formErrors.amountGroup!='undefined ') && (formErrors.compareAmount))">
-              {{formErrors.compareAmount}}
+            <span class="help-block" *ngIf="((formErrors.amountGroup!='undefined ') && (formErrors.typicalSalesAmount))">
+              {{formErrors.typicalSalesAmount}}
             </span>
 
-            <span class="help-block" *ngIf="(employeeForm.value.compareAmount && formErrors.amountGroup=='' && formErrors.compareAmount=='') && checkValuesCompareAmount()">              
+            <span class="help-block" *ngIf="(employeeForm.value.typicalSalesAmount && formErrors.amountGroup=='' && formErrors.typicalSalesAmount=='') && checkValuesTypicalSalesAmount()">              
                 Second Amount can not greater First Amount
             </span>
 
@@ -90,20 +90,19 @@
           </div>
         </div>
 
-        <div class="form-group" [ngClass]="{'has-error' : checkValuesthirdAmount()}">
-          <label class="col-sm-2 control-label" for="thirdAmount">Third Amount</label>
+        <div class="form-group" [ngClass]="{'has-error' : checkValuesAnticipatedHighestTicket()}">
+          <label class="col-sm-2 control-label" for="anticipatedHighestTicket">Third Amount</label>
           <div class="col-sm-8">
-            <input id="thirdAmount" formControlName="thirdAmount" maxLength="12" type="text" class="form-control"
+            <input id="anticipatedHighestTicket" formControlName="anticipatedHighestTicket" maxLength="12" type="text" class="form-control"
               (blur)="logValidationErrors()" [textMask]="amountMask" [appUnmask]="amountUnmask">
 
           
 
-            <span class="help-block"
-            *ngIf="((formErrors.amountGroup!='undefined ') && (formErrors.thirdAmount))">
-            {{formErrors.thirdAmount}}
+            <span class="help-block"  *ngIf="((formErrors.amountGroup!='undefined ') && (formErrors.anticipatedHighestTicket))">
+            {{formErrors.anticipatedHighestTicket}}
           </span>
 
-            <span class="help-block" *ngIf="(employeeForm.value.thirdAmount && formErrors.amountGroup=='' && formErrors.thirdAmount=='') && checkValuesthirdAmount()">
+            <span class="help-block" *ngIf="(employeeForm.value.anticipatedHighestTicket && formErrors.amountGroup=='' && formErrors.anticipatedHighestTicket=='') && checkValuesAnticipatedHighestTicket()">
              
                 Third Amount should be greater than Second Amount and Less than First Amount.
               
