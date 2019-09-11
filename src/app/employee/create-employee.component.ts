@@ -135,7 +135,7 @@ export class CreateEmployeeComponent implements OnInit {
       method2: [this.method2[0], [Validators.required]],
       method3: [this.method3[0], [Validators.required]],
       methodTotal: ['', [Validators.required]]
-    },{ validator: compareLessThanAnnual1 });
+    }, { validator: compareLessThanAnnual1 });
 
     this.employeeForm.get('contactPreference').valueChanges.subscribe((data: string) => {
       this.onContactPreferenceChange(data);
@@ -216,6 +216,8 @@ export class CreateEmployeeComponent implements OnInit {
   calculateTotalValue() {
     this.methodTotal = Number(this.employeeForm.get('method1').value.value) + Number(this.employeeForm.get('method2').value.value) + Number(this.employeeForm.get('method3').value.value);
     console.log(this.methodTotal);
+
+    this.employeeForm.value.methodTotal = this.methodTotal;
   }
 
 

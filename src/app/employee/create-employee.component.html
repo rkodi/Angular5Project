@@ -175,14 +175,14 @@
           </div>
 
           <div class="form-group col-xs-3 col-sm-3" align="center"
-            [ngClass]="{'has-error' : this.methodTotal != 100 && this.methodTotal}">
+            [ngClass]="{'has-error' : (this.methodTotal != 100) && this.methodTotal}">
             <label>Method Total</label>
             <input type="text" class="form-control" [attr.readonly]="true" formControlName="methodTotal"
               placeholder="{{this.methodTotal + '%' }}">
             <span class="help-block" *ngIf="this.methodTotal >= 101">
               Total must be 100%
             </span>
-            <span class="help-block" *ngIf="this.methodTotal < 99 && this.methodTotal">
+            <span class="help-block" *ngIf="this.methodTotal < 100 && this.methodTotal">
               Total must be 100%
             </span>
           </div>
@@ -280,6 +280,6 @@
     {{employeeForm.value | json}}
 
     Ex: get Value from form in HTML:
-    
+
     {{employeeForm.value.annualAmount}}
   </pre>
