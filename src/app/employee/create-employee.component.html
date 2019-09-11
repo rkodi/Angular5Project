@@ -3,7 +3,7 @@
     <div class="panel-heading">
       <h3 class="panel-title">Create Employee</h3>
     </div>
-    
+
     <div class="panel-body">
       <div class="form-group" [ngClass]="{'has-error' : formErrors.fullName}">
         <label class="col-sm-2 control-label" for="fullName">Full Name</label>
@@ -61,7 +61,7 @@
         </div>
       </div>
 
-      <div formGroupName="amountGroup">
+      <div >
         <div class="form-group" [ngClass]="{'has-error' : formErrors.annualAmount}">
           <label class="col-sm-2 control-label" for="annualAmount">Amount</label>
           <div class="col-sm-8">
@@ -87,14 +87,14 @@
             </span>
 
 
-            <span *ngIf="(employeeForm.value.amountGroup.compareAmount && formErrors.amountGroup=='undefined ')">
+            <span *ngIf="(employeeForm.value.compareAmount && formErrors.amountGroup=='undefined ')">
               <span class="help-block" *ngIf="checkValuesCompareAmount()">
                 Compare can not be greater than Amount
               </span>
 
             </span>
 
-            <span *ngIf="(employeeForm.value.amountGroup.compareAmount && formErrors.amountGroup=='' && formErrors.compareAmount=='')">
+            <span *ngIf="(employeeForm.value.compareAmount && formErrors.amountGroup=='' && formErrors.compareAmount=='')">
               <span class="help-block" *ngIf="checkValuesCompareAmount()">
                 Compare can not greater than Amount
               </span>
@@ -123,13 +123,13 @@
 
 
 
-            <span *ngIf="(employeeForm.value.amountGroup.thirdAmount && formErrors.amountGroup=='undefined ')">
+            <span *ngIf="(employeeForm.value.thirdAmount && formErrors.amountGroup=='undefined ')">
               <span class="help-block" *ngIf="checkValuesthirdAmount()">
                 should be greater than compareAmount
               </span>
             </span>
 
-            <span *ngIf="(employeeForm.value.amountGroup.thirdAmount && formErrors.amountGroup=='' && formErrors.thirdAmount=='')">
+            <span *ngIf="(employeeForm.value.thirdAmount && formErrors.amountGroup=='' && formErrors.thirdAmount=='')">
               <span class="help-block" *ngIf="checkValuesthirdAmount()">
                 should be greater than compareAmount and Less than Annual Amount
               </span>
@@ -274,3 +274,12 @@
       </td>
     </tr>
   </table> -->
+
+
+  <pre>
+    {{employeeForm.value | json}}
+
+    Ex: get Value from form in HTML:
+    
+    {{employeeForm.value.annualAmount}}
+  </pre>

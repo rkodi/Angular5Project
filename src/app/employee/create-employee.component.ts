@@ -117,17 +117,15 @@ export class CreateEmployeeComponent implements OnInit {
         confirmEmail: ['', Validators.required]
       }, { validator: matchEmail }),
       phone: [''],
-      amountGroup: this.fb.group({
-        annualAmount: ['', [
-          Validators.required,
-          CustomValidators.annualAmountMinMax1]],
-        compareAmount: ['', [
-          Validators.required,
-          CustomValidators.compareAmountMinMax]],
-        thirdAmount: ['', [
-          Validators.required,
-          CustomValidators.thirdAmountMinMax]],
-      }, { validator: compareLessThanAnnual1 }),
+      annualAmount: ['', [
+        Validators.required,
+        CustomValidators.annualAmountMinMax1]],
+      compareAmount: ['', [
+        Validators.required,
+        CustomValidators.compareAmountMinMax]],
+      thirdAmount: ['', [
+        Validators.required,
+        CustomValidators.thirdAmountMinMax]],
       skills: this.fb.group({
         skillName: ['', Validators.required],
         experienceInYears: ['', Validators.required],
@@ -137,7 +135,7 @@ export class CreateEmployeeComponent implements OnInit {
       method2: [this.method2[0], [Validators.required]],
       method3: [this.method3[0], [Validators.required]],
       methodTotal: ['', [Validators.required]]
-    });
+    },{ validator: compareLessThanAnnual1 });
 
     this.employeeForm.get('contactPreference').valueChanges.subscribe((data: string) => {
       this.onContactPreferenceChange(data);
@@ -317,8 +315,8 @@ export class CreateEmployeeComponent implements OnInit {
     }
     else {
 
-      let CompareAmountchk = Number(this.employeeForm.value.amountGroup.compareAmount);
-      let AnnualAmountchk = Number(this.employeeForm.value.amountGroup.annualAmount);
+      let CompareAmountchk = Number(this.employeeForm.value.compareAmount);
+      let AnnualAmountchk = Number(this.employeeForm.value.annualAmount);
 
       if (CompareAmountchk && this.formErrors.amountGroup == 'undefined ') {
         if (AnnualAmountchk <= CompareAmountchk) {
@@ -349,9 +347,9 @@ export class CreateEmployeeComponent implements OnInit {
     }
     else {
 
-      let AnnualAmountchk = Number(this.employeeForm.value.amountGroup.annualAmount);
-      let CompareAmountchk = Number(this.employeeForm.value.amountGroup.compareAmount);
-      let ThirdAmountchk = Number(this.employeeForm.value.amountGroup.thirdAmount);
+      let AnnualAmountchk = Number(this.employeeForm.value.annualAmount);
+      let CompareAmountchk = Number(this.employeeForm.value.compareAmount);
+      let ThirdAmountchk = Number(this.employeeForm.value.thirdAmount);
 
 
 
