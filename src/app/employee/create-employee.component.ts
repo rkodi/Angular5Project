@@ -13,7 +13,7 @@ import { percentageList } from './services/percentage-list';
 export class CreateEmployeeComponent implements OnInit {
 
 
-  employeeForm: FormGroup;
+  businessInfoConGroup: FormGroup;
   public method1: Percentage[] = percentageList;
   public method2: Percentage[] = percentageList;
   public method3: Percentage[] = percentageList;
@@ -104,7 +104,7 @@ export class CreateEmployeeComponent implements OnInit {
 
   ngOnInit() {
 
-    this.employeeForm = this.fb.group({
+    this.businessInfoConGroup = this.fb.group({
       fullName: ['', [
         Validators.required,
         Validators.minLength(2),
@@ -137,23 +137,23 @@ export class CreateEmployeeComponent implements OnInit {
       methodTotal: ['', [Validators.required]]
     }, { validator: compareLessThanAnnual1 });
 
-    this.employeeForm.get('contactPreference').valueChanges.subscribe((data: string) => {
+    this.businessInfoConGroup.get('contactPreference').valueChanges.subscribe((data: string) => {
       this.onContactPreferenceChange(data);
     });
 
-    this.employeeForm.valueChanges.subscribe((data) => {
-      this.logValidationErrors(this.employeeForm);
+    this.businessInfoConGroup.valueChanges.subscribe((data) => {
+      this.logValidationErrors(this.businessInfoConGroup);
     });
 
-    // this.employeeForm.get('fullName').valueChanges.subscribe((value: string) => {
+    // this.businessInfoConGroup.get('fullName').valueChanges.subscribe((value: string) => {
     //   this.fullNameLength = value.length;
     // });
   }
 
   matchValidator(control: AbstractControl): { [key: string]: boolean } | null {
     const fromValue = control.value;
-    if (this.employeeForm) {
-      const toValue = (<FormGroup>this.employeeForm.get('group1')).get('field').value;
+    if (this.businessInfoConGroup) {
+      const toValue = (<FormGroup>this.businessInfoConGroup.get('group1')).get('field').value;
       if (fromValue <= toValue) {
         console.log('Control: ', control);
         return { 'fieldMatch': true };
@@ -164,13 +164,13 @@ export class CreateEmployeeComponent implements OnInit {
   }
 
   get group2Field() {
-    return (<FormGroup>this.employeeForm.get('group2')).get('field');
+    return (<FormGroup>this.businessInfoConGroup.get('group2')).get('field');
   }
 
 
 
   onContactPreferenceChange(selectedValue: string) {
-    const phoneControl = this.employeeForm.get('phone');
+    const phoneControl = this.businessInfoConGroup.get('phone');
     if (selectedValue === 'phone') {
       phoneControl.setValidators([Validators.required, Validators.minLength(10)]);
     } else {
@@ -182,7 +182,7 @@ export class CreateEmployeeComponent implements OnInit {
 
 
 
-  logValidationErrors(group: FormGroup = this.employeeForm): void {
+  logValidationErrors(group: FormGroup = this.businessInfoConGroup): void {
     Object.keys(group.controls).forEach((key: string) => {
       const abstractControl = group.get(key);
       this.formErrors[key] = '';
@@ -215,8 +215,8 @@ export class CreateEmployeeComponent implements OnInit {
     }
     else {
 
-      let typicalSalesAmountchk = Number(this.employeeForm.value.typicalSalesAmount);
-      let annualCreditCardSaleschk = Number(this.employeeForm.value.annualCreditCardSales);
+      let typicalSalesAmountchk = Number(this.businessInfoConGroup.value.typicalSalesAmount);
+      let annualCreditCardSaleschk = Number(this.businessInfoConGroup.value.annualCreditCardSales);
 
       if (typicalSalesAmountchk && this.formErrors.amountGroup == 'undefined') {
         if (annualCreditCardSaleschk <= typicalSalesAmountchk) {
@@ -247,9 +247,9 @@ export class CreateEmployeeComponent implements OnInit {
     }
     else {
 
-      let annualCreditCardSaleschk = Number(this.employeeForm.value.annualCreditCardSales);
-      let typicalSalesAmountchk = Number(this.employeeForm.value.typicalSalesAmount);
-      let anticipatedHighestTicketchk = Number(this.employeeForm.value.anticipatedHighestTicket);
+      let annualCreditCardSaleschk = Number(this.businessInfoConGroup.value.annualCreditCardSales);
+      let typicalSalesAmountchk = Number(this.businessInfoConGroup.value.typicalSalesAmount);
+      let anticipatedHighestTicketchk = Number(this.businessInfoConGroup.value.anticipatedHighestTicket);
 
 
 
