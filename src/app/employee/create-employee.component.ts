@@ -5,7 +5,6 @@ import createNumberMask from 'text-mask-addons/dist/createNumberMask';
 import { Percentage } from './models/percentage.model';
 import { percentageList } from './services/percentage-list';
 
-
 @Component({
   selector: 'app-create-employee',
   templateUrl: './create-employee.component.html',
