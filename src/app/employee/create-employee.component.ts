@@ -73,20 +73,20 @@ export class CreateEmployeeComponent implements OnInit {
       'required': 'Phone number is required.'
     },
     'annualAmount': {
-      'required': 'Annual Amount is required.',
+      'required': 'First Amount is required.',
       'min': 'Amount must be greater than 999 .',
       'max': 'Amount must be less than 1,000,000,000.',
-      'annualAmountMinMax': 'Must be 999 or 100000000 max',
-      'annualAmountMinMax1': 'Must be 999 or 100000000 max1'
+      'annualAmountMinMax': 'Must be 999 > or <100000000 max',
+      'annualAmountMinMax1': 'Must be 999 or 100000000'
     },
     'compareAmount': {
-      'required': 'Compare Amount is required.',
+      'required': 'Second Amount is required.',
       'compareAmountMinMax': 'Compare Must be less than 50,000.',
       // 'compareLessThanAnnualAmount1': 'Compare Amount can not be greater than Annual Amount.'
     },
     'thirdAmount': {
       'required': 'Third Amount is required.',
-      'thirdAmountMinMax': 'Third Amount Must be less than 100,000.',
+      'thirdAmountMinMax': 'Third Amount Must be less than 100,000,000.',
     },
     'skillName': {
       'required': 'Skill Name is required.',

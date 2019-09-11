@@ -55,7 +55,7 @@ export class CustomValidators {
             if(thirdAmount === '') {                
                 return null;             
                 
-            } else if(Number(thirdAmount) >= 100001.00) {
+            } else if(Number(thirdAmount) >= 1000001.00) {
                 return {'thirdAmountMinMax': true}
             }
                 
