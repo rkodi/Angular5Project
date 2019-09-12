@@ -13,50 +13,50 @@ export class CustomValidators {
         };
     }
 
-    static annualCreditCardSalesMinMax(){
+    static annualAmountMinMax(){
         return (control: AbstractControl): { [key: string]: any } | null => {
-            const annualCreditCardSales: any = control.value;
-            if(annualCreditCardSales === '' || Number(annualCreditCardSales) <= 999.00 || Number(annualCreditCardSales) >= 10000001.00) {
+            const annualAmount: any = control.value;
+            if(annualAmount === '' || Number(annualAmount) <= 999.00 || Number(annualAmount) >= 10000001.00) {
                 return null;
             } else {
-                return { 'annualCreditCardSalesMinMax': true};
+                return { 'annualAmountMinMax': true};
             }
         }
     }
 
-    static annualCreditCardSalesMinMax1(control: FormControl):  any {
-            let annualCreditCardSales: any = control.value;
-            if(annualCreditCardSales === '') {
+    static annualAmountMinMax1(control: FormControl):  any {
+            let annualAmount: any = control.value;
+            if(annualAmount === '') {
                 
                 return null;
                     
                 
-            } else if(Number(annualCreditCardSales) <= 999.00 || Number(annualCreditCardSales) >= 1000000001.00) {
-                return {'annualCreditCardSalesMinMax1': true}
+            } else if(Number(annualAmount) <= 999.00 || Number(annualAmount) >= 1000000001.00) {
+                return {'annualAmountMinMax1': true}
             }
                 
            
         }
 
-    static typicalSalesAmountMinMax(control: FormControl):  any {
-            let typicalSalesAmount: any = control.value;
-            if(typicalSalesAmount === '') {                
+    static compareAmountMinMax(control: FormControl):  any {
+            let compareAmount: any = control.value;
+            if(compareAmount === '') {                
                 return null;             
                 
-            } else if(Number(typicalSalesAmount) >= 50001.00) {
-                return {'typicalSalesAmountMinMax': true}
+            } else if(Number(compareAmount) >= 50001.00) {
+                return {'compareAmountMinMax': true}
             }
                 
            
         }
 
-    static anticipatedHighestTicketMinMax(control: FormControl):  any {
-            let anticipatedHighestTicket: any = control.value;
-            if(anticipatedHighestTicket === '') {                
+    static thirdAmountMinMax(control: FormControl):  any {
+            let thirdAmount: any = control.value;
+            if(thirdAmount === '') {                
                 return null;             
                 
-            } else if(Number(anticipatedHighestTicket) >= 1000001.00) {
-                return {'anticipatedHighestTicketMinMax': true}
+            } else if(Number(thirdAmount) >= 100001.00) {
+                return {'thirdAmountMinMax': true}
             }
                 
            
