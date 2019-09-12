@@ -1,9 +1,8 @@
-<form [formGroup]="businessInfoConGroup" (ngSubmit)="onSubmit()" class="form-horizontal">
+<form [formGroup]="employeeForm" (ngSubmit)="onSubmit()" class="form-horizontal">
   <div class="panel panel-primary">
-    <!-- <div class="panel-heading">
+    <div class="panel-heading">
       <h3 class="panel-title">Create Employee</h3>
     </div>
-
     <div class="panel-body">
       <div class="form-group" [ngClass]="{'has-error' : formErrors.fullName}">
         <label class="col-sm-2 control-label" for="fullName">Full Name</label>
@@ -59,53 +58,80 @@
             {{formErrors.phone}}
           </span>
         </div>
-      </div> -->
+      </div>
 
-      <div >
-        <div class="form-group" [ngClass]="{'has-error' : formErrors.annualCreditCardSales}">
-          <label class="col-sm-2 control-label" for="annualCreditCardSales">Annual Credit Card Sales</label>
+      <div formGroupName="amountGroup">
+        <div class="form-group" [ngClass]="{'has-error' : formErrors.annualAmount}">
+          <label class="col-sm-2 control-label" for="annualAmount">Amount</label>
           <div class="col-sm-8">
-            <input id="annualCreditCardSales" formControlName="annualCreditCardSales" maxLength="16" type="text" class="form-control"
-              (blur)="logValidationErrors();checkValuesTypicalSalesAmount()" [textMask]="amountMask" [appUnmask]="amountUnmask">
-            <span class="help-block" *ngIf="formErrors.annualCreditCardSales">
-              {{formErrors.annualCreditCardSales}}
+            <input id="annualAmount" formControlName="annualAmount" maxLength="16" type="text" class="form-control"
+              (blur)="logValidationErrors();checkValuesCompareAmount()" [textMask]="amountMask" [appUnmask]="amountUnmask">
+            <span class="help-block" *ngIf="formErrors.annualAmount">
+              {{formErrors.annualAmount}}
             </span>
           </div>
         </div>
 
-        <div class="form-group" [ngClass]="{'has-error' : checkValuesTypicalSalesAmount()}">
-          <label class="col-sm-2 control-label" for="typicalSalesAmount">Typical Sales Amount</label>
+        <div class="form-group" [ngClass]="{'has-error' : checkValuesCompareAmount()}">
+          <label class="col-sm-2 control-label" for="compareAmount">Compare Amount</label>
           <div class="col-sm-8">
-            <input id="typicalSalesAmount" formControlName="typicalSalesAmount" maxLength="10" type="text" class="form-control"
+            <input id="compareAmount" formControlName="compareAmount" maxLength="10" type="text" class="form-control"
               (blur)="logValidationErrors()" [textMask]="amountMask" [appUnmask]="amountUnmask">
-            <span class="help-block" *ngIf="((formErrors.amountGroup!='undefined ') && (formErrors.typicalSalesAmount))">
-              {{formErrors.typicalSalesAmount}}
+            <span class="help-block" *ngIf="((formErrors.amountGroup!='undefined ') && (formErrors.compareAmount))">
+              {{formErrors.compareAmount}}
             </span>
 
-            <span class="help-block" *ngIf="(businessInfoConGroup.value.typicalSalesAmount && formErrors.amountGroup=='' && formErrors.typicalSalesAmount=='') && checkValuesTypicalSalesAmount()">              
-                Typical Amount can not greater Annual Amount
+            <span class="help-block" *ngIf="((formErrors.amountGroup!='undefined ') && (formErrors.amountGroup))">
+              {{formErrors.amountGroup}}
+            </span>
+
+
+            <span *ngIf="(employeeForm.value.amountGroup.compareAmount && formErrors.amountGroup=='undefined ')">
+              <span class="help-block" *ngIf="checkValuesCompareAmount()">
+                Compare can not be greater than Amount
+              </span>
+
+            </span>
+
+            <span *ngIf="(employeeForm.value.amountGroup.compareAmount && formErrors.amountGroup=='' && formErrors.compareAmount=='')">
+              <span class="help-block" *ngIf="checkValuesCompareAmount()">
+                Compare can not greater than Amount
+              </span>
+
             </span>
 
 
           </div>
         </div>
 
-        <div class="form-group" [ngClass]="{'has-error' : checkValuesAnticipatedHighestTicket()}">
-          <label class="col-sm-2 control-label" for="anticipatedHighestTicket">Anticipated Highest</label>
+        <div class="form-group" [ngClass]="{'has-error' : checkValuesthirdAmount()}">
+          <label class="col-sm-2 control-label" for="thirdAmount">Third Amount</label>
           <div class="col-sm-8">
-            <input id="anticipatedHighestTicket" formControlName="anticipatedHighestTicket" maxLength="12" type="text" class="form-control"
+            <input id="thirdAmount" formControlName="thirdAmount" maxLength="11" type="text" class="form-control"
               (blur)="logValidationErrors()" [textMask]="amountMask" [appUnmask]="amountUnmask">
 
-          
+            <span class="help-block"
+              *ngIf="((formErrors.amountGroup!='undefined ') && (formErrors.amountGroup))">
+              {{formErrors.amountGroup}}
+            </span>
 
-            <span class="help-block"  *ngIf="((formErrors.amountGroup!='undefined ') && (formErrors.anticipatedHighestTicket))">
-            {{formErrors.anticipatedHighestTicket}}
+            <span class="help-block"
+            *ngIf="((formErrors.amountGroup!='undefined ') && (formErrors.thirdAmount))">
+            {{formErrors.thirdAmount}}
           </span>
 
-            <span class="help-block" *ngIf="(businessInfoConGroup.value.anticipatedHighestTicket && formErrors.amountGroup=='' && formErrors.anticipatedHighestTicket=='') && checkValuesAnticipatedHighestTicket()">
-             
-              Anticipated Highest Amount should be greater than Typical Amount and Less than Annual Amount.
-              
+
+
+            <span *ngIf="(employeeForm.value.amountGroup.thirdAmount && formErrors.amountGroup=='undefined ')">
+              <span class="help-block" *ngIf="checkValuesthirdAmount()">
+                should be greater than compareAmount
+              </span>
+            </span>
+
+            <span *ngIf="(employeeForm.value.amountGroup.thirdAmount && formErrors.amountGroup=='' && formErrors.thirdAmount=='')">
+              <span class="help-block" *ngIf="checkValuesthirdAmount()">
+                should be greater than compareAmount and Less than Annual Amount
+              </span>
             </span>
 
 
@@ -115,7 +141,7 @@
 
       
 
-      <!-- <div>
+      <div>
         <div>
           <label>Total of Methods</label>
         </div>
@@ -148,20 +174,20 @@
           </div>
 
           <div class="form-group col-xs-3 col-sm-3" align="center"
-            [ngClass]="{'has-error' : (this.methodTotal != 100) && this.methodTotal}">
+            [ngClass]="{'has-error' : this.methodTotal != 100 && this.methodTotal}">
             <label>Method Total</label>
             <input type="text" class="form-control" [attr.readonly]="true" formControlName="methodTotal"
               placeholder="{{this.methodTotal + '%' }}">
             <span class="help-block" *ngIf="this.methodTotal >= 101">
               Total must be 100%
             </span>
-            <span class="help-block" *ngIf="this.methodTotal < 100 && this.methodTotal">
+            <span class="help-block" *ngIf="this.methodTotal < 99 && this.methodTotal">
               Total must be 100%
             </span>
           </div>
 
         </div>
-      </div> -->
+      </div>
 
       <!-- <div class="well">
         <div formGroupName="skills">
@@ -224,7 +250,7 @@
         <button class="btn btn-primary" type="button" (click)="continue()">Continue</button>
       </div>
     </div>
-  <!-- </div> -->
+  </div>
 </form>
 
 <!-- <table border="1">
@@ -234,25 +260,16 @@
     </tr>
     <tr>
       <td style="padding: 10px">
-        touched : {{ businessInfoConGroup.touched }}
-        <br/> dirty : {{ businessInfoConGroup.dirty }}
-        <br/> valid : {{ businessInfoConGroup.valid }}
-        <br/> Form Values : {{businessInfoConGroup.value | json}}
+        touched : {{ employeeForm.touched }}
+        <br/> dirty : {{ employeeForm.dirty }}
+        <br/> valid : {{ employeeForm.valid }}
+        <br/> Form Values : {{employeeForm.value | json}}
       </td>
       <td style="padding: 10px">
-        touched : {{ businessInfoConGroup.get('annualAmount').touched }}
-        <br/> dirty : {{ businessInfoConGroup.get('annualAmount').dirty }}
-        <br/> valid : {{ businessInfoConGroup.get('annualAmount').valid }}
-        <br/> annualAmount Value : {{businessInfoConGroup.get('annualAmount').value}}
+        touched : {{ employeeForm.get('annualAmount').touched }}
+        <br/> dirty : {{ employeeForm.get('annualAmount').dirty }}
+        <br/> valid : {{ employeeForm.get('annualAmount').valid }}
+        <br/> annualAmount Value : {{employeeForm.get('annualAmount').value}}
       </td>
     </tr>
   </table> -->
-
-
-  <pre>
-    {{businessInfoConGroup.value | json}}
-
-    Ex: get Value from form in HTML:
-
-    {{businessInfoConGroup.value.annualAmount}}
-  </pre>

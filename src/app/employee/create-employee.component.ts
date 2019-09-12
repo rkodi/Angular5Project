@@ -5,6 +5,7 @@ import createNumberMask from 'text-mask-addons/dist/createNumberMask';
 import { Percentage } from './models/percentage.model';
 import { percentageList } from './services/percentage-list';
 
+
 @Component({
   selector: 'app-create-employee',
   templateUrl: './create-employee.component.html',
@@ -13,7 +14,7 @@ import { percentageList } from './services/percentage-list';
 export class CreateEmployeeComponent implements OnInit {
 
 
-  businessInfoConGroup: FormGroup;
+  employeeForm: FormGroup;
   public method1: Percentage[] = percentageList;
   public method2: Percentage[] = percentageList;
   public method3: Percentage[] = percentageList;
@@ -39,9 +40,9 @@ export class CreateEmployeeComponent implements OnInit {
     'emailGroup': '',
     'amountGroup': '',
     'phone': '',
-    'annualCreditCardSales': '',
-    'typicalSalesAmount': '',
-    'anticipatedHighestTicket': '',
+    'annualAmount': '',
+    'compareAmount': '',
+    'thirdAmount': '',
     'skillName': '',
     'experienceInYears': '',
     'proficiency': ''
@@ -72,21 +73,21 @@ export class CreateEmployeeComponent implements OnInit {
     'phone': {
       'required': 'Phone number is required.'
     },
-    'annualCreditCardSales': {
+    'annualAmount': {
       'required': 'Annual Amount is required.',
       'min': 'Amount must be greater than 999 .',
       'max': 'Amount must be less than 1,000,000,000.',
-      'annualCreditCardSalesMinMax': 'Must be 999 > or <100000000 max',
-      'annualCreditCardSalesMinMax1': 'Must be 999 or 100000000'
+      'annualAmountMinMax': 'Must be 999 or 100000000 max',
+      'annualAmountMinMax1': 'Must be 999 or 100000000 max1'
     },
-    'typicalSalesAmount': {
-      'required': 'Typical Amount is required.',
-      'typicalSalesAmountAmountMinMax': 'Compare Must be less than 50,000.',
+    'compareAmount': {
+      'required': 'Compare Amount is required.',
+      'compareAmountMinMax': 'Compare Must be less than 50,000.',
       // 'compareLessThanAnnualAmount1': 'Compare Amount can not be greater than Annual Amount.'
     },
-    'anticipatedHighestTicket': {
-      'required': 'Anticipate Amount is required.',
-      'anticipatedHighestTicketMinMax': 'Third Amount Must be less than 100,000,000.',
+    'thirdAmount': {
+      'required': 'Third Amount is required.',
+      'thirdAmountMinMax': 'Third Amount Must be less than 100,000.',
     },
     'skillName': {
       'required': 'Skill Name is required.',
@@ -104,7 +105,7 @@ export class CreateEmployeeComponent implements OnInit {
 
   ngOnInit() {
 
-    this.businessInfoConGroup = this.fb.group({
+    this.employeeForm = this.fb.group({
       fullName: ['', [
         Validators.required,
         Validators.minLength(2),
@@ -117,15 +118,17 @@ export class CreateEmployeeComponent implements OnInit {
         confirmEmail: ['', Validators.required]
       }, { validator: matchEmail }),
       phone: [''],
-      annualCreditCardSales: ['', [
-        Validators.required,
-        CustomValidators.annualCreditCardSalesMinMax1]],
-      typicalSalesAmount: ['', [
-        Validators.required,
-        CustomValidators.typicalSalesAmountMinMax]],
-      anticipatedHighestTicket: ['', [
-        Validators.required,
-        CustomValidators.anticipatedHighestTicketMinMax]],
+      amountGroup: this.fb.group({
+        annualAmount: ['', [
+          Validators.required,
+          CustomValidators.annualAmountMinMax1]],
+        compareAmount: ['', [
+          Validators.required,
+          CustomValidators.compareAmountMinMax]],
+        thirdAmount: ['', [
+          Validators.required,
+          CustomValidators.thirdAmountMinMax]],
+      }, { validator: compareLessThanAnnual1 }),
       skills: this.fb.group({
         skillName: ['', Validators.required],
         experienceInYears: ['', Validators.required],
@@ -135,25 +138,25 @@ export class CreateEmployeeComponent implements OnInit {
       method2: [this.method2[0], [Validators.required]],
       method3: [this.method3[0], [Validators.required]],
       methodTotal: ['', [Validators.required]]
-    }, { validator: compareLessThanAnnual1 });
+    });
 
-    this.businessInfoConGroup.get('contactPreference').valueChanges.subscribe((data: string) => {
+    this.employeeForm.get('contactPreference').valueChanges.subscribe((data: string) => {
       this.onContactPreferenceChange(data);
     });
 
-    this.businessInfoConGroup.valueChanges.subscribe((data) => {
-      this.logValidationErrors(this.businessInfoConGroup);
+    this.employeeForm.valueChanges.subscribe((data) => {
+      this.logValidationErrors(this.employeeForm);
     });
 
-    // this.businessInfoConGroup.get('fullName').valueChanges.subscribe((value: string) => {
+    // this.employeeForm.get('fullName').valueChanges.subscribe((value: string) => {
     //   this.fullNameLength = value.length;
     // });
   }
 
   matchValidator(control: AbstractControl): { [key: string]: boolean } | null {
     const fromValue = control.value;
-    if (this.businessInfoConGroup) {
-      const toValue = (<FormGroup>this.businessInfoConGroup.get('group1')).get('field').value;
+    if (this.employeeForm) {
+      const toValue = (<FormGroup>this.employeeForm.get('group1')).get('field').value;
       if (fromValue <= toValue) {
         console.log('Control: ', control);
         return { 'fieldMatch': true };
@@ -164,13 +167,13 @@ export class CreateEmployeeComponent implements OnInit {
   }
 
   get group2Field() {
-    return (<FormGroup>this.businessInfoConGroup.get('group2')).get('field');
+    return (<FormGroup>this.employeeForm.get('group2')).get('field');
   }
 
 
 
   onContactPreferenceChange(selectedValue: string) {
-    const phoneControl = this.businessInfoConGroup.get('phone');
+    const phoneControl = this.employeeForm.get('phone');
     if (selectedValue === 'phone') {
       phoneControl.setValidators([Validators.required, Validators.minLength(10)]);
     } else {
@@ -182,7 +185,7 @@ export class CreateEmployeeComponent implements OnInit {
 
 
 
-  logValidationErrors(group: FormGroup = this.businessInfoConGroup): void {
+  logValidationErrors(group: FormGroup = this.employeeForm): void {
     Object.keys(group.controls).forEach((key: string) => {
       const abstractControl = group.get(key);
       this.formErrors[key] = '';
@@ -208,25 +211,125 @@ export class CreateEmployeeComponent implements OnInit {
     });
   }
 
-  checkValuesTypicalSalesAmount() {
+  setTotalValue() {
+    this.calculateTotalValue()
+    console.log(this.calculateTotalValue);
+  }
 
-    if (((this.formErrors.amountGroup != 'undefined ') && (this.formErrors.typicalSalesAmount || this.formErrors.amountGroup))) {
+  calculateTotalValue() {
+    this.methodTotal = Number(this.employeeForm.get('method1').value.value) + Number(this.employeeForm.get('method2').value.value) + Number(this.employeeForm.get('method3').value.value);
+    console.log(this.methodTotal);
+  }
+
+
+  // this.employeeForm = new FormGroup({
+  //   fullName: new FormControl(),
+  //   email: new FormControl(),
+  //   skills: new FormGroup({
+  //     skillName:new FormControl(),
+  //     experienceInYears:new FormControl(),
+  //     proficiency:new FormControl()
+  //   })
+  // });
+  // }
+
+  onLoadDataClick(): void {
+
+    this.logValidationErrors(this.employeeForm);
+    console.log(this.formErrors);
+
+    // const formArray = new FormArray([
+    //   new FormControl('John', Validators.required),
+    //   new FormGroup({
+    //     country: new FormControl('', Validators.required)
+    //   }),
+    //   new FormArray([])
+    // ]);
+
+    // const formArray1 = this.fb.array([
+    //   new FormControl('John', Validators.required),
+    //   new FormControl('IT', Validators.required),
+    //   new FormControl('', Validators.required),
+
+    // ]);
+
+    // console.log(formArray1.value);
+    // for formArray output
+    // console.log(formArray.length);
+
+    // for (const control of formArray.controls) {
+    //   if(control instanceof FormControl) {
+    //     console.log('Control is FormCotrol')
+    //   }
+    //   if(control instanceof FormGroup) {
+    //     console.log('Control is FormGroup')
+    //   }
+    //   if(control instanceof FormArray) {
+    //     console.log('Control is FormArray')
+    //   }
+    // }
+
+
+    // this.employeeForm.patchValue({
+    //   fullName: 'Ravi Kodi',
+    //   email: 'ravi@mail.com',
+    //   skills: {
+    //     skillName: 'Angular',
+    //     experienceInYears: 3,
+    //     proficiency: 'beginner'
+    //   }
+    // })
+  }
+  onSubmit(): void {
+    // console.log(this.employeeForm.dirty);
+    console.log(this.employeeForm.value);
+
+    // console.log(this.employeeForm.controls.fullName.touched);
+    // console.log(this.employeeForm.get('fullName').value);
+  }
+  continue() {
+    this.employeeForm.get('fullName').markAsTouched();
+    // this.employeeForm.get('email').markAsTouched();
+    // this.employeeForm.get('confirmEmail').markAsTouched();
+    // this.employeeForm.get('annualAmount').markAsTouched();
+    // this.employeeForm.get('compareAmount').markAsTouched();
+    // this.employeeForm.get('thirdAmount').markAsTouched();
+    // this.employeeForm.get('skillName').markAsTouched();
+    // this.employeeForm.get('experienceInYears').markAsTouched();
+
+    //   if (this.employeeForm.valid && this.methodTotal === 100) {
+    //     console.log('validation success')
+    //   }else {
+
+    //     const invalidElements = this.element.nativeElement.querySelectAll('input.ng-invalid');
+    //     if(invalidElements.length > 0) {
+    //       invalidElements[0].focus();
+    //     }
+    //   }
+  }
+
+
+
+
+  checkValuesCompareAmount() {
+
+    if (((this.formErrors.amountGroup != 'undefined ') && (this.formErrors.compareAmount || this.formErrors.amountGroup))) {
       return true;
     }
     else {
 
-      let typicalSalesAmountchk = Number(this.businessInfoConGroup.value.typicalSalesAmount);
-      let annualCreditCardSaleschk = Number(this.businessInfoConGroup.value.annualCreditCardSales);
+      let CompareAmountchk = Number(this.employeeForm.value.amountGroup.compareAmount);
+      let AnnualAmountchk = Number(this.employeeForm.value.amountGroup.annualAmount);
 
-      if (typicalSalesAmountchk && this.formErrors.amountGroup == 'undefined') {
-        if (annualCreditCardSaleschk <= typicalSalesAmountchk) {
+      if (CompareAmountchk && this.formErrors.amountGroup == 'undefined ') {
+        if (AnnualAmountchk <= CompareAmountchk) {
           return true;
         }
       }
       else {
 
-        if (annualCreditCardSaleschk && typicalSalesAmountchk) {
-          if (annualCreditCardSaleschk <= typicalSalesAmountchk) {
+        if (AnnualAmountchk && CompareAmountchk) {
+          if (AnnualAmountchk <= CompareAmountchk) {
             return true;
           }
         }
@@ -239,32 +342,32 @@ export class CreateEmployeeComponent implements OnInit {
 
   }
 
-  checkValuesAnticipatedHighestTicket() {
+  checkValuesthirdAmount() {
 
 
-    if (((this.formErrors.amountGroup != 'undefined ') && (this.formErrors.anticipatedHighestTicket || this.formErrors.amountGroup))) {
+    if (((this.formErrors.amountGroup != 'undefined ') && (this.formErrors.thirdAmount || this.formErrors.amountGroup))) {
       return true;
     }
     else {
 
-      let annualCreditCardSaleschk = Number(this.businessInfoConGroup.value.annualCreditCardSales);
-      let typicalSalesAmountchk = Number(this.businessInfoConGroup.value.typicalSalesAmount);
-      let anticipatedHighestTicketchk = Number(this.businessInfoConGroup.value.anticipatedHighestTicket);
+      let AnnualAmountchk = Number(this.employeeForm.value.amountGroup.annualAmount);
+      let CompareAmountchk = Number(this.employeeForm.value.amountGroup.compareAmount);
+      let ThirdAmountchk = Number(this.employeeForm.value.amountGroup.thirdAmount);
 
 
 
-      if ((anticipatedHighestTicketchk && this.formErrors.amountGroup == 'undefined ')) {
-        if (typicalSalesAmountchk >= anticipatedHighestTicketchk) {
+      if ((ThirdAmountchk && this.formErrors.amountGroup == 'undefined ')) {
+        if (CompareAmountchk >= ThirdAmountchk) {
           return true;
         }
       }
       else {
 
-        if (anticipatedHighestTicketchk && typicalSalesAmountchk) {
-          if (typicalSalesAmountchk >= anticipatedHighestTicketchk) {
+        if (ThirdAmountchk && CompareAmountchk) {
+          if (CompareAmountchk >= ThirdAmountchk) {
             return true;
           }
-          else if (annualCreditCardSaleschk <= anticipatedHighestTicketchk) {
+          else if (AnnualAmountchk <= ThirdAmountchk) {
             return true;
           }
         }
@@ -291,25 +394,25 @@ function matchEmail(group: AbstractControl): { [key: string]: any } | null {
 }
 
 function compareLessThanAnnual(group: AbstractControl): { [key: string]: any } | null {
-  const annualControl = group.get('annualCreditCardSales');
-  const compareControl = group.get('typicalSalesAmount');
+  const annualControl = group.get('annualAmount');
+  const compareControl = group.get('compareAmount');
 
   if (Number(annualControl.value) > Number(compareControl.value) || annualControl.pristine || compareControl.pristine) {
     return null;
   } else {
-    return { 'compareLessThanannualCreditCardSales': true };
+    return { 'compareLessThanAnnualAmount': true };
   }
 }
 
 const compareLessThanAnnual1: ValidatorFn = (fg: FormGroup) => {
-  const annualControl1 = fg.get('annualCreditCardSales').value;
-  const compareControl1 = fg.get('typicalSalesAmount').value;
-  const thirdControl1 = fg.get('anticipatedHighestTicket').value;
+  const annualControl1 = fg.get('annualAmount').value;
+  const compareControl1 = fg.get('compareAmount').value;
+  const thirdControl1 = fg.get('thirdAmount').value;
   if (Number(annualControl1) > Number(compareControl1) || annualControl1 === '' || compareControl1 === '' || compareControl1.pristine) {
     return null;
   } else
 
-    return { 'compareLessThanannualCreditCardSales1': true };
+    return { 'compareLessThanAnnualAmount1': true };
   // return { 'compareLessThanAnnualAmount2': true };
 }
 
