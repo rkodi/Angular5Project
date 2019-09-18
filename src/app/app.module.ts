@@ -9,6 +9,7 @@ import { CreateEmployeeComponent } from './employee/create-employee.component';
 import { ListEmployeesComponent } from './employee/list-employees.component';
 
 import { UnmaskDirective } from './unmask.directive';
+import { ThirdpageComponent } from './employee/thirdpage/thirdpage.component';
 
 
 @NgModule({
@@ -16,7 +17,8 @@ import { UnmaskDirective } from './unmask.directive';
     AppComponent,
     CreateEmployeeComponent,
     ListEmployeesComponent,
-    UnmaskDirective
+    UnmaskDirective,
+    ThirdpageComponent
   ],
   imports: [
     BrowserModule,

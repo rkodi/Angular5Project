@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators, FormControl } from '@angular/forms';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-list-employees',
@@ -11,7 +12,7 @@ export class ListEmployeesComponent implements OnInit {
   registerForm: FormGroup;
   submitted = false;
 
-  constructor(private formBuilder: FormBuilder) { }
+  constructor(private formBuilder: FormBuilder,public router:Router) { }
 
   ngOnInit() {
     this.registerForm = this.formBuilder.group({
@@ -33,7 +34,11 @@ export class ListEmployeesComponent implements OnInit {
       return;
     }
 
-    alert('SUCCESS!! :-)\n\n' + JSON.stringify(this.registerForm.value))
+    alert('SUCCESS!! :-)\n\n' + JSON.stringify(this.registerForm.value));
+
+    localStorage.setItem('addressInfo',JSON.stringify(this.registerForm.value));
+    
+    this.router.navigate(['thirdpage']);
   }
 
   fieldMatcher(value1: string, value2: string, value3: string) {
