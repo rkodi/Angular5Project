@@ -11,49 +11,69 @@
   <div class="container">
     <div class="row">
       <div class="col-md-6 offset-md-3">
-        <h3>Angular Multi Field Validation</h3>
+        <h3>Angular Nested Dropdown Lists </h3>
         <form [formGroup]="registerForm" (ngSubmit)="onSubmit()">
+
+
           <div class="form-group">
-            <label>First Name</label>
-            <input type="text" formControlName="amount1" class="form-control"
-              [ngClass]="{ 'is-invalid': submitted && f.amount1.errors }" />
-            <div *ngIf="submitted && f.amount1.errors" class="invalid-feedback">
-              <div *ngIf="f.amount1.errors.required">First Name is required</div>
+            <label>Primary Title</label>
+
+            <select class="form-control" formControlName="title" (change)="onChangePrimaryTitle($event)"
+              id="exampleFormControlSelect1">
+              <option value="" selected disabled>Select Title</option>
+              <option *ngFor="let item of _baseService.AllPrimaryTitles" [value]="item.id">{{item.title}}</option>
+            </select>
+
+
+            <div *ngIf="submitted && f.title.errors" class="invalid-feedback">
+              <div *ngIf="f.title.errors.required">Title is required</div>
             </div>
-
-
-
-          </div>
-          <div class="form-group">
-            <label>Last Name</label>
-            <input type="text" formControlName="amount2" class="form-control"
-              [ngClass]="{ 'is-invalid': submitted && f.amount2.errors }" />
-            <div *ngIf="submitted && f.amount2.errors" class="invalid-feedback">
-              <div *ngIf="f.amount2.errors.required">Last Name is required</div>
-            </div>
-
-         
 
 
           </div>
 
+
           <div class="form-group">
-            <label>Last Name</label>
-            <input type="text" formControlName="amount3" class="form-control"
-              [ngClass]="{ 'is-invalid': submitted && f.amount3.errors }" />
-            <div *ngIf="submitted && f.amount3.errors" class="invalid-feedback">
-              <div *ngIf="f.amount3.errors.required">Last Name is required</div>
+            <label>Sub Title</label>
+
+            <select class="form-control" formControlName="subtitle" (change)="onChangeSubTitle($event)"
+              id="exampleFormControlSelect2">
+              <option value="" selected disabled>Select Sub Title</option>
+              <option *ngFor="let item of _baseService.AllSubTitles" [value]="item.id">{{item.title}}</option>
+            </select>
+
+
+            <div *ngIf="submitted && f.subtitle.errors" class="invalid-feedback">
+              <div *ngIf="f.subtitle.errors.required">Sub Title is required</div>
             </div>
 
-          
+
 
 
           </div>
+
+
+          <div class="form-group" *ngIf="isDoubleNineExist">
+            <label>Input Element</label>
+
+            <input type="text" class="form-control" formControlName="inputText" id="inputText" placeholder="inputText">
+
+            <div *ngIf="submitted && f.inputText.errors" class="invalid-feedback">
+              <div *ngIf="f.inputText.errors.required">inputText is required</div>
+            </div>
+
+
+          </div>
+
 
           <div class="form-group">
             <button class="btn btn-primary">Register</button>
           </div>
         </form>
+
+        <pre>
+          {{registerForm.value | json}}
+        </pre>
       </div>
     </div>
   </div>

@@ -1,0 +1,114 @@
+[
+    {
+      "id": 1,
+      "title": "Appliances, Electronics, Computers"
+    },
+    {
+      "id": 2,
+      "title": "Automotive, Boats, RVs (Sales and Service)"
+    },
+    {
+      "id": 3,
+      "title": "Business To Business/Wholesale (Clothing/Products)"
+    },
+    {
+      "id": 4,
+      "title": "Business To Business/Wholesale (Equipment)"
+    },
+    {
+      "id": 5,
+      "title": "Business To Business/Wholesale (Services)"
+    },
+    {
+      "id": 6,
+      "title": "Business To Business/Wholesale (Supplies)"
+    },
+    {
+      "id": 7,
+      "title": "Clothing and Shoes"
+    },
+    {
+      "id": 8,
+      "title": "Contractors (Plumbers, Electricians, etc)"
+    },
+    {
+      "id": 9,
+      "title": "Digital Goods "
+    },
+    {
+      "id": 10,
+      "title": "Discount, Department and Variety Stores"
+    },
+    {
+      "id": 11,
+      "title": "Education/Schools/Universities/Vocational"
+    },
+    {
+      "id": 12,
+      "title": "Entertainment and Amusement"
+    },
+    {
+      "id": 13,
+      "title": "Financial Services (Insurance, Brokers, etc.)"
+    },
+    {
+      "id": 14,
+      "title": "Government Services (Utilities, Taxes, etc)"
+    },
+    {
+      "id": 15,
+      "title": "Home and Garden (Hardware, Florists, Home Supply, etc)"
+    },
+    {
+      "id": 16,
+      "title": "Household Items (Furniture, Floor Covering, Antiques, etc)"
+    },
+    {
+      "id": 17,
+      "title": "Large Digital Goods Merchant"
+    },
+    {
+      "id": 18,
+      "title": "Medical Services and Doctors"
+    },
+    {
+      "id": 19,
+      "title": "Membership, Charitable and Religious Organizations"
+    },
+    {
+      "id": 20,
+      "title": "Personal Services (Dry Cleaners, Movers, Carpet Cleaners etc)"
+    },
+    {
+      "id": 21,
+      "title": "Pharmacies, Health and Beauty"
+    },
+    {
+      "id": 22,
+      "title": "Professional Services (Attorney, Accountant, etc)"
+    },
+    {
+      "id": 23,
+      "title": "Repair Shops (Not Automotive)"
+    },
+    {
+      "id": 24,
+      "title": "Restaurant, Beverage and Food"
+    },
+    {
+      "id": 25,
+      "title": "Specialty Retail (Jewelry, Stationery, Book, etc)"
+    },
+    {
+      "id": 26,
+      "title": "Sporting Goods, Hobbies and Art"
+    },
+    {
+      "id": 27,
+      "title": "Telephone, Cable & Computer Processing (Equip. & Services)"
+    },
+    {
+      "id": 28,
+      "title": "Travel and Transportation"
+    }
+  ]

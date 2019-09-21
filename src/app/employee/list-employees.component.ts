@@ -2,6 +2,9 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators, FormControl } from '@angular/forms';
 import { Router } from '@angular/router';
 
+import { BaseService } from '../base.service';
+
+
 @Component({
   selector: 'app-list-employees',
   templateUrl: './list-employees.component.html',
@@ -12,15 +15,22 @@ export class ListEmployeesComponent implements OnInit {
   registerForm: FormGroup;
   submitted = false;
 
-  constructor(private formBuilder: FormBuilder,public router:Router) { }
+  isDoubleNineExist: boolean = false;
+
+
+  constructor(private formBuilder: FormBuilder, public router: Router, public _baseService: BaseService) { }
 
   ngOnInit() {
+
+    this._baseService.getAllPrimaryTitles();
+
     this.registerForm = this.formBuilder.group({
-      amount1: ['', [Validators.required]],
-      amount2: ['', [Validators.required]],
-      amount3: ['', [Validators.required]],
-    },
-      { validator: this.fieldMatcher('amount1', 'amount2', 'amount3') });
+      title: ['', [Validators.required]],
+      subtitle: ['', [Validators.required]],
+      inputText: [''],
+    });
+
+
   }
 
   // convenience getter for easy access to form fields
@@ -36,31 +46,50 @@ export class ListEmployeesComponent implements OnInit {
 
     alert('SUCCESS!! :-)\n\n' + JSON.stringify(this.registerForm.value));
 
-    localStorage.setItem('addressInfo',JSON.stringify(this.registerForm.value));
-    
+    localStorage.setItem('addressInfo', JSON.stringify(this.registerForm.value));
+
     this.router.navigate(['thirdpage']);
   }
 
-  fieldMatcher(value1: string, value2: string, value3: string) {
-    return (group: FormGroup) => {
 
-      let amount1 = Number(group.controls[value1].value);
-      let amount2 = Number(group.controls[value2].value);
-      let amount3 = Number(group.controls[value3].value);
+  onChangePrimaryTitle(event: any) {
 
-      if (amount1 && amount2 && amount3) {
-        if (amount1 <= amount2) {
-          return group.controls[value2].setErrors({ notEquivalent: true })
-        }
-        else if (amount1 <= amount3) {
-          return group.controls[value3].setErrors({ notEquivalent: true })
-        }
-      }
 
-    }
+    console.log(event.target.value);
+    // I want to do something here for new selectedDevice, but what I
+    // got here is always last selection, not the one I just select.
+
+    let primary_id = event.target.value;
+
+    this._baseService.getAllSubTitles(primary_id);
 
   }
 
 
-  
+  onChangeSubTitle(event: any) {
+
+    let subTitleID = event.target.value;
+
+    if (subTitleID) {
+      var selectedID = subTitleID.toString();
+      var isExist = selectedID.includes("99");
+
+      if (isExist) {
+        this.isDoubleNineExist = true;
+
+      }
+      else {
+        this.isDoubleNineExist = false;
+      }
+
+
+    }
+    else {
+      this.isDoubleNineExist = false;
+    }
+
+
+  }
+
+
 }

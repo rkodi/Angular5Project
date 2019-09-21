@@ -1,0 +1,152 @@
+[
+    {
+      "id": 5946,
+      "title": "Camera & Photographic Supply",
+      "primary_id": 1
+    },
+    {
+      "id": 5734,
+      "title": "Computer Software Stores",
+      "primary_id": 1
+    },
+    {
+      "id": 5732,
+      "title": "Computers, Electronics Stores",
+      "primary_id": 1
+    },
+    {
+      "id": 5722,
+      "title": "Household Appliance Stores",
+      "primary_id": 1
+    },
+    {
+      "id": 7538,
+      "title": "Automotive Repair Shops-Non-Dealer",
+      "primary_id": 2
+    },
+    {
+      "id": 5542,
+      "title": "Automated Gasoline Dispensers",
+      "primary_id": 2
+    },
+    {
+      "id": 5511,
+      "title": "Automobile & Truck Dealers-New",
+      "primary_id": 2
+    },
+    {
+      "id": 5521,
+      "title": "Automobile And Truck Dealers-Used",
+      "primary_id": 2
+    },
+    {
+      "id": 7523,
+      "title": "Automobile Parking Lots",
+      "primary_id": 2
+    },
+    {
+      "id": 5533,
+      "title": "Automotive Parts,Accessories Stores",
+      "primary_id": 2
+    },
+    {
+      "id": 5532,
+      "title": "Automotive Tire Stores",
+      "primary_id": 2
+    },
+    {
+      "id": 7531,
+      "title": "Automotive Top And Body Repair",
+      "primary_id": 2
+    },
+    {
+      "id": 5551,
+      "title": "Boat Dealers",
+      "primary_id": 2
+    },
+    {
+      "id": 4457,
+      "title": "Boat Rentals & Leases",
+      "primary_id": 2
+    },
+    {
+      "id": 7542,
+      "title": "Car Washes",
+      "primary_id": 2
+    },
+    {
+      "id": 7394,
+      "title": "Equipment Rental & Leasing Services",
+      "primary_id": 2
+    },
+    {
+      "id": 5541,
+      "title": "Gas/Service Stations",
+      "primary_id": 2
+    },
+    {
+      "id": 4468,
+      "title": "Marinas, Marine Service",
+      "primary_id": 2
+    },
+    {
+      "id": 5271,
+      "title": "Mobile Home Dealers",
+      "primary_id": 2
+    },
+    {
+      "id": 7519,
+      "title": "Motor Home & Recreational Vehicles ",
+      "primary_id": 2
+    },
+    {
+      "id": 5592,
+      "title": "Motor Homes Dealers",
+      "primary_id": 2
+    },
+    {
+      "id": 5571,
+      "title": "Motorcycle Dealers",
+      "primary_id": 2
+    },
+    {
+      "id": 7535,
+      "title": "Paint Shops-Automotive",
+      "primary_id": 2
+    },
+    {
+      "id": 5561,
+      "title": "Recreational & Utility Trailers",
+      "primary_id": 2
+    },
+    {
+      "id": 5598,
+      "title": "Snowmobile Dealers",
+      "primary_id": 2
+    },
+    {
+      "id": 7534,
+      "title": "Tire Retreading & Repair",
+      "primary_id": 2
+    },
+    {
+      "id": 7549,
+      "title": "Towing Services",
+      "primary_id": 2
+    },
+    {
+      "id": 7513,
+      "title": "Truck And Utility Trailer Rentals",
+      "primary_id": 2
+    },
+    {
+      "id": 5935,
+      "title": "Wrecking And Salvage Yards",
+      "primary_id": 2
+    },
+    {
+      "id": 5599,
+      "title": "Misc Automotive, Aircraft, Farm Equip Dealers",
+      "primary_id": 2
+    }
+  ]
