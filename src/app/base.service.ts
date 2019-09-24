@@ -1,16 +1,29 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
+import { Router, NavigationEnd } from '@angular/router';
 
 @Injectable({
   providedIn: 'root'
 })
 export class BaseService {
 
+  currentUrl: any;
+
   AllPrimaryTitles: any[] = [];
   AllSubTitles: any[] = [];
 
-  constructor(private http: HttpClient) {
+  constructor(private http: HttpClient,
+    private router: Router) {
     this.getAllPrimaryTitles();
+
+    this.router.events
+      .subscribe((event) => {
+        if (event instanceof NavigationEnd) {
+          this.currentUrl = event.url;
+        }
+      });
+
+
   }
 
 

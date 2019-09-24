@@ -1,4 +1,11 @@
 import { Component, OnInit } from '@angular/core';
+import { FormBuilder, FormGroup, Validators, FormControl } from '@angular/forms';
+import { Router } from '@angular/router';
+
+
+import { BaseService } from '../../base.service';
+
+
 
 @Component({
   selector: 'app-thirdpage',
@@ -7,74 +14,82 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ThirdpageComponent implements OnInit {
 
-  storedInfo:any={};
+  storedInfo: any = {};
 
+  registerForm: FormGroup;
+  submitted = false;
 
-  
- AllDesc:any = [
-  "7538=Automotive Repair Shops-Non-Dealer",
-  "5542=Automated Gasoline Dispensers",
-  "5511=Automobile & Truck Dealers-New",
-  "5521=Automobile And Truck Dealers-Used",
-  "7523=Automobile Parking Lots",
-  "5533=Automotive Parts,Accessories Stores",
-  "5532=Automotive Tire Stores",
-  "7531=Automotive Top And Body Repair",
-  "5551=Boat Dealers",
-  "4457=Boat Rentals & Leases",
-  "7542=Car Washes",
-  "7394=Equipment Rental & Leasing Services",
-  "5541=Gas/Service Stations",
-  "4468=Marinas, Marine Service",
-  "5271=Mobile Home Dealers",
-  "7519=Motor Home & Recreational Vehicles ",
-  "5592=Motor Homes Dealers",
-  "5571=Motorcycle Dealers",
-  "7535=Paint Shops-Automotive",
-  "5561=Recreational & Utility Trailers",
-  "5598=Snowmobile Dealers",
-  "7534=Tire Retreading & Repair",
-  "7549=Towing Services",
-  "7513=Truck And Utility Trailer Rentals",
-  "5935=Wrecking And Salvage Yards",
-  "5599=Misc Automotive, Aircraft, Farm Equip Dealers"
-];
+  isDoubleNineExist: boolean = false;
 
+  constructor(private formBuilder: FormBuilder, public router: Router, public _baseService: BaseService) { }
 
-
- arrObject:any[] = [];
-
-
-  constructor() { }
 
   ngOnInit() {
 
-this.storedInfo=localStorage.getItem('addressInfo')?JSON.parse(localStorage.getItem('addressInfo')):{};
+    this.storedInfo = localStorage.getItem('addressInfo') ? JSON.parse(localStorage.getItem('addressInfo')) : {};
+
+
+    this._baseService.getAllPrimaryTitles();
+
+    this.registerForm = this.formBuilder.group({
+      title: [this.storedInfo.title, [Validators.required]],
+      subtitle: [this.storedInfo.subtitle, [Validators.required]],
+      inputText: [this.storedInfo.inputText],
+    });
+
+
+    if (this.storedInfo.inputText) {
+      this.isDoubleNineExist = true;
+    }
+
+    if (this.storedInfo.title) {
+      let primary_id = Number(this.storedInfo.title);
+      this._baseService.getAllSubTitles(primary_id);
+    }
+
+  }
 
 
 
-let self=this;
 
-this.AllDesc.forEach(function (item) {
-
-  var res = item.split("=");
-  debugger;
-
-  let objectVal = {
-    "id": Number(res[0]),
-    "title": res[1],
-    "primary_id":2
-  };
-
-  self.arrObject.push(objectVal);
-
-})
+  onChangePrimaryTitle(event: any) {
 
 
-console.log(this.arrObject);
+    console.log(event.target.value);
+    // I want to do something here for new selectedDevice, but what I
+    // got here is always last selection, not the one I just select.
 
+    let primary_id = event.target.value;
+
+    this._baseService.getAllSubTitles(primary_id);
+
+  }
+
+
+  onChangeSubTitle(event: any) {
+
+    let subTitleID = event.target.value;
+
+    if (subTitleID) {
+      var selectedID = subTitleID.toString();
+      var isExist = selectedID.includes("99");
+
+      if (isExist) {
+        this.isDoubleNineExist = true;
+
+      }
+      else {
+        this.isDoubleNineExist = false;
+      }
+
+
+    }
+    else {
+      this.isDoubleNineExist = false;
+    }
 
 
   }
+
 
 }
