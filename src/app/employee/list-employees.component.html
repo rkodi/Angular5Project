@@ -1,3 +1,73 @@
-<p>
-  list-employees works!
-</p>
+<div class="jumbotron">
+  <div class="container">
+    <div class="row">
+      <div class="col-md-6 offset-md-3">
+        <h3>Angular Multi Field Validation</h3>
+        <form [formGroup]="registerForm" (ngSubmit)="onSubmit()">
+          <div class="form-group">
+            <label>email</label>
+            <input type="text" formControlName="input1" class="form-control"
+              [ngClass]="{ 'is-invalid': submitted && f.input1.errors }" />
+            <div *ngIf="submitted && f.input1.errors" class="invalid-feedback">
+              <div *ngIf="f.input1.errors.required">First Name is required</div>
+            </div>
+
+
+            <pre>
+{{f.input1.errors | json}}
+                        </pre>
+
+          </div>
+          <div class="form-group">
+            <label>confirm email</label>
+            <input type="text" formControlName="input2" class="form-control"
+              [ngClass]="{ 'is-invalid': submitted && f.input2.errors }" />
+            <div *ngIf="submitted && f.input2.errors" class="invalid-feedback">
+              <div *ngIf="f.input2.errors.required">Last Name is required</div>
+            </div>
+
+            <pre>
+{{f.input2.errors | json}}
+                        </pre>
+
+
+          </div>
+
+          <div class="form-group">
+            <label>ssn</label>
+            <input type="text" formControlName="input3" class="form-control"
+              [ngClass]="{ 'is-invalid': submitted && f.input3.errors }" />
+            <div *ngIf="submitted && f.input3.errors" class="invalid-feedback">
+              <div *ngIf="f.input3.errors.required">Last Name is required</div>
+            </div>
+
+            <pre>
+{{f.input3.errors | json}}
+                        </pre>
+
+
+          </div>
+
+          <div class="form-group">
+            <label>ssn confirm</label>
+            <input type="text" formControlName="input4" class="form-control"
+              [ngClass]="{ 'is-invalid': submitted && f.input4.errors }" />
+            <div *ngIf="submitted && f.input4.errors" class="invalid-feedback">
+              <div *ngIf="f.input4.errors.required">Last Name is required</div>
+            </div>
+
+            <pre>
+{{f.input4.errors | json}}
+                        </pre>
+
+
+          </div>
+
+          <div class="form-group">
+            <button class="btn btn-primary">Register</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div> 
